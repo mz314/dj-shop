@@ -1,8 +1,8 @@
 <h1>
  FRONT
 </h1>
-<ul>
-    <li ng-repeat="a in articles">
-        {{a.fields.title}}
-    </li>
-</ul>
+
+    <div ng-repeat="a in articles">
+        <h2>{{a.fields.title}}</h2>
+        <div>{{a.fields.content}}</div>
+    </div>
