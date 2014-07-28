@@ -14,3 +14,11 @@ class Article(models.Model):
 
     def __unicode__(self):
         return self.title
+
+    def short(self):
+        max_l=100
+        if(len(self.content)>max_l):
+            s=self.content[:max_l]+'...'
+            return s
+        else:
+            return self.content

@@ -1,0 +1,14 @@
+{% extends "theme.html" %}
+{% block content %}
+{% for a in articles %}
+<div>
+    <div>
+        {{a.title}}
+    </div>
+    <div>
+        {{a.short}}
+    </div>
+
+</div>
+{% endfor %}
+{% endblock %}
