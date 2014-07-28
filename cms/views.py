@@ -23,3 +23,7 @@ def category(request,id):
         'articles':arts,
     }
     return render(request,'cms/category.html',context)
+
+
+def test(request):
+    return render(request,'cms/angular_test.html')
