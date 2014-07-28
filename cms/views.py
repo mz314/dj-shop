@@ -1,5 +1,9 @@
 from django.shortcuts import render
+from cms.models import *
 
-# Create your views here.
 def article(request,id):
-    return
+    art=Article.objects.get(pk=id)
+    context={
+        'article':art,
+    }
+    return render(request,'cms/article.html',context)
