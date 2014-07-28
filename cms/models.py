@@ -8,9 +8,10 @@ class Category(models.Model):
         return self.name
 
 class Article(models.Model):
-    parent_category=models.ForeignKey(Category)
+    parent_category=models.ForeignKey(Category,null=True,blank=True)
     title=models.CharField(max_length=64,null=False,blank=False)
     content=models.TextField(max_length=99999,null=False,blank=False)
+    on_front=models.BooleanField(blank=True,default=False)
 
     def __unicode__(self):
         return self.title

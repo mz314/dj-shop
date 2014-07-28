@@ -25,5 +25,5 @@ def category(request,id):
     return render(request,'cms/category.html',context)
 
 
-def test(request):
-    return render(request,'cms/angular_test.html')
+def home(request):
+    return render(request,'cms/home.html')
