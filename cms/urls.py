@@ -11,6 +11,6 @@ urlpatterns = patterns('',
     url(r'^article/(?P<id>[0-9]+)/$',cms.views.article,name='article'),
     url(r'^categories/',cms.views.categories,name='categories'),
     url(r'^category/(?P<id>[0-9]+)/$',cms.views.category,name='category'),
-    url(r'^test/$',cms.views.test,name='test')
+
 
 )

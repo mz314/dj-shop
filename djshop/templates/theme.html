@@ -1,13 +1,18 @@
 <!DOCTYPE html>
-<html ng-app>
+<html ng-app="djshop">
 <head>
     {% load staticfiles %}
     <script src="{% static "bower_components/angular/angular.js" %}"></script>
     <script src="{% static "bower_components/angular-route/angular-route.js" %}"></script>
+    <script src="{% static "js/app.js" %}"></script>
+    <script src="{% static "js/controllers.js" %}"></script>
     <title>DJ SHOP</title>
 </head>
 <body>
 {% block content %}
+<div ng-view>
+
+</div>
 {% endblock %}
 </body>
 </html>
