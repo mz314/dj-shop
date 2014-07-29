@@ -5,9 +5,13 @@
     {{product.fields.name}}
 </h1>
 <div>
- {{product.fields.price}}
+    {{product.fields.price}}
 </div>
-<div>
-    <button type="button" id="add-to-cart" ng-click="addToCart(product.pk)">Add to cart</button>
-    <input type="number" id="quantity" />
+<div ng-controller="CartAddController">
+    <form class="add-form">
+
+     
+        <input type="number" id="quantity" ng-model="item.quantity" />
+     <button type="button" id="add-to-cart" ng-click="addToCart(item,product.pk)">Add to cart</button>
+    </form>
 </div>

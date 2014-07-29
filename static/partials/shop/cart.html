@@ -1,1 +1,21 @@
-cart
+<table width="100%" border="1">
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="i in items">
+            <td>
+                {{i.fields.name}}
+            </td>
+            <td>
+                {{i.fields.price}}
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+    
+        <button type="button" ng-click="cleanCart()">Clear</button>

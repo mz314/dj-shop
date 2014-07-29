@@ -22,6 +22,7 @@ class CartView(View):
             contents=json.JSONDecoder().decode(contents)
         except TypeError:
             self.reset(request)
+            contents=[]
         return contents
 
     def update(self,request,cart):
@@ -38,3 +39,17 @@ class CartView(View):
         self.add(request,kwargs['id'])
         print request.session['cart']
         return HttpResponse('OK')
+
+
+
+class CartList(CartView):
+    def get(self,request,*args,**kwargs):
+        cart=self.get_cotents(request)
+        items=Item.objects.filter(pk__in=cart)
+        return jret(items)
+
+
+class CartClean(CartView):
+    def get(self,request,*args,**kwargs):
+        self.reset(request)
+        return HttpResponse("OK")

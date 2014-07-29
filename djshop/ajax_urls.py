@@ -16,4 +16,6 @@ urlpatterns = patterns('',
     url(r'^items/(?P<cat_id>\w+)/$',shop.views.items),
     url(r'^item/(?P<id>\w+)/$',shop.views.item),
     url(r'^add_to_cart/(?P<id>\w+)/$',shop.cart_view.CartView.as_view()),
+    url(r'^cart/$',shop.cart_view.CartList.as_view()),
+    url(r'^cart/clean/$',shop.cart_view.CartClean.as_view()),
 )
