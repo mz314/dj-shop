@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load menutag %}
 <html ng-app="djshop">
 <head>
     {% load staticfiles %}
@@ -9,6 +10,7 @@
     <title>DJ SHOP</title>
 </head>
 <body>
+{% menutag "main" %}
 {% block content %}
 <div ng-view>
 

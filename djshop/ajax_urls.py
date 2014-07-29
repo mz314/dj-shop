@@ -7,8 +7,7 @@ import cms.ajax_views
 
 urlpatterns = patterns('',
 
-
-
     url(r'^fronts/$',cms.ajax_views.front_articles),
+    url(r'^article/([0-9])',cms.ajax_views.article)
 
 )

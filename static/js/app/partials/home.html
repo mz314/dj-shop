@@ -5,4 +5,5 @@
     <div ng-repeat="a in articles">
         <h2>{{a.fields.title}}</h2>
         <div>{{a.fields.content}}</div>
+        <div><a href="#/article/{{a.pk}}">Read more</a></div>
     </div>

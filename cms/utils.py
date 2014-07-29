@@ -1,8 +1,12 @@
 from django.core import serializers
 from django.http import HttpResponse
+import json
 
 def jsonize(objects):
-    data=serializers.serialize('json',objects)
+    try:
+        data=serializers.serialize('json',objects)
+    except TypeError:
+        data=serializers.serialize('json',[objects])
     return data
 
 

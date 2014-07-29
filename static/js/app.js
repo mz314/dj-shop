@@ -9,5 +9,9 @@ djShop.config(['$routeProvider',
       when('/', {
         templateUrl: 'static/js/app/partials/home.html',
         controller: 'HomeCtrl'
+      }).
+      when('/article/:articleId',{
+          templateUrl: 'static/js/app/partials/article.html',
+          controller: 'ArticleCtrl'
       });
   }]);
