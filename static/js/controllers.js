@@ -42,3 +42,9 @@ djShopControllers.controller('HomeCtrl', ['$scope', '$http',
     };
   }]);
   
+   djShopControllers.controller('CartCtrl', ['$scope', '$routeParams','$http',
+  function($scope, $routeParams,$http) {
+//        $http.get('ajax/article/'+$routeParams.articleId).success(function(data) {
+//            $scope.article = data[0];
+//    });
+  }]);
