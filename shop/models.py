@@ -5,7 +5,12 @@ class Tax(models.Model):
     name=models.CharField(max_length=64)
     amount=models.DecimalField(decimal_places=2,max_digits=10)
     def __unicode__(self):
-        return self.name+' '+unicode(self.amount)
+        return self.name+' '+unicode(self.amount)+'%'
+
+class Currency(models.Model):
+    name=models.CharField(max_length=128)
+    symbol=models.CharField(max_length=16)
+    factor=models.DecimalField(decimal_places=2,max_digits=10)
 
 
 class Category(models.Model):
@@ -33,6 +38,8 @@ class Item(models.Model):
     categories=models.ManyToManyField(Category)
     images=models.ManyToManyField(ItemImage,null=True,blank=True)
     tax=models.ForeignKey(Tax,null=True,blank=True)
+    currency=models.ForeignKey(Currency)
+
 
     def __unicode__(self):
         return self.name
