@@ -14,9 +14,13 @@ djShop.config(['$routeProvider',
           templateUrl: 'static/partials/cms/article.html',
           controller: 'ArticleCtrl'
       }).
-    when('/shop/',{
+    when('/shop/:catId?',{
       templateUrl: 'static/partials/shop/category.html',
       controller: 'ShopCtrl'  
-      })              
-      ;
+      }).              
+      when('/details/:itemId',{
+          templateUrl : 'static/partials/shop/item.html',
+          controller: 'ItemCtrl',
+      })
+              ;
   }]);

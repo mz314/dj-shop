@@ -18,12 +18,22 @@ djShopControllers.controller('HomeCtrl', ['$scope', '$http',
   
     djShopControllers.controller('ShopCtrl', ['$scope', '$routeParams','$http',
   function($scope, $routeParams,$http) {
-        $http.get('ajax/category/').success(function(data) {
+    if(typeof $routeParams.catId==='undefined') {
+        $routeParams.catId='';
+    }
+      $http.get('ajax/category/'+$routeParams.catId).success(function(data) {
             $scope.categories = data;
     });
-    $http.get('ajax/items/1').success(function(data) {
+    $http.get('ajax/items/'+$routeParams.catId).success(function(data) {
             $scope.items = data;
     });
   }]);
   
+  
+   djShopControllers.controller('ItemCtrl', ['$scope', '$routeParams','$http',
+  function($scope, $routeParams,$http) {
+        $http.get('ajax/item/'+$routeParams.itemId).success(function(data) {
+            $scope.product=data[0];
+    });
+  }]);
   

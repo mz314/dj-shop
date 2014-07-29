@@ -3,7 +3,10 @@ from shop.models import *
 from djshop.utils import *
 
 def items(request,cat_id=None):
-    items=Item.objects.filter(categories__in=cat_id)
+    if cat_id is None:
+        items=[]
+    else:
+        items=Item.objects.filter(categories__in=cat_id)
     return jret(items)
 
 def category(request,id=None):
@@ -11,3 +14,8 @@ def category(request,id=None):
 
 
     return jret(categories)
+
+
+def item(request,id):
+    item=Item.objects.get(pk=id)
+    return jret([item])
