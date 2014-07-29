@@ -19,3 +19,10 @@ def category(request,id=None):
 def item(request,id):
     item=Item.objects.get(pk=id)
     return jret([item])
+
+
+
+
+def addToCart(request,id):
+    #initCart(request)
+    pass

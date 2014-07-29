@@ -35,5 +35,10 @@ djShopControllers.controller('HomeCtrl', ['$scope', '$http',
         $http.get('ajax/item/'+$routeParams.itemId).success(function(data) {
             $scope.product=data[0];
     });
+    $scope.addToCart=function (product_id) {
+       $http.get('ajax/add_to_cart/'+product_id).success(function(data) {
+        console.log(data);
+       });
+    };
   }]);
   

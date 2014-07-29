@@ -3,7 +3,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 import cms.ajax_views
 import shop.views
-
+import shop.cart_view
 
 
 urlpatterns = patterns('',
@@ -15,4 +15,5 @@ urlpatterns = patterns('',
     url(r'^items/$',shop.views.items),
     url(r'^items/(?P<cat_id>\w+)/$',shop.views.items),
     url(r'^item/(?P<id>\w+)/$',shop.views.item),
+    url(r'^add_to_cart/(?P<id>\w+)/$',shop.cart_view.CartView.as_view()),
 )
