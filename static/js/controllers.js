@@ -15,3 +15,15 @@ djShopControllers.controller('HomeCtrl', ['$scope', '$http',
             $scope.article = data[0];
     });
   }]);
+  
+    djShopControllers.controller('ShopCtrl', ['$scope', '$routeParams','$http',
+  function($scope, $routeParams,$http) {
+        $http.get('ajax/category/').success(function(data) {
+            $scope.categories = data;
+    });
+    $http.get('ajax/items/1').success(function(data) {
+            $scope.items = data;
+    });
+  }]);
+  
+  

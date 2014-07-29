@@ -7,11 +7,16 @@ djShop.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
       when('/', {
-        templateUrl: 'static/js/app/partials/home.html',
+        templateUrl: 'static/partials/cms/home.html',
         controller: 'HomeCtrl'
       }).
       when('/article/:articleId',{
-          templateUrl: 'static/js/app/partials/article.html',
+          templateUrl: 'static/partials/cms/article.html',
           controller: 'ArticleCtrl'
-      });
+      }).
+    when('/shop/',{
+      templateUrl: 'static/partials/shop/category.html',
+      controller: 'ShopCtrl'  
+      })              
+      ;
   }]);

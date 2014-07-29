@@ -1,6 +1,4 @@
-from django.shortcuts import render
-from django.core import serializers
-from cms.utils import *
+from djshop.utils import *
 from cms.models import *
 
 
