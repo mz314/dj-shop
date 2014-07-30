@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Tax(models.Model):
@@ -11,6 +12,10 @@ class Currency(models.Model):
     name=models.CharField(max_length=128)
     symbol=models.CharField(max_length=16)
     factor=models.DecimalField(decimal_places=2,max_digits=10)
+
+    def __unicode__(self):
+        return self.name+" (%s)" % (self.symbol,)
+
 
 
 class Category(models.Model):
@@ -45,8 +50,8 @@ class Item(models.Model):
         return self.name
 
 
-
-
+class Order(models.Model):
+    datetime=models.DateTimeField(auto_now=True)
 
 
 
