@@ -1,6 +1,8 @@
 var djShop = angular.module('djshop', [
   'ngRoute',
-  'djShopControllers'
+  'ngSanitize',
+    'djShopControllers'
+ 
 ]);
 
 djShop.config(['$routeProvider',
@@ -25,6 +27,10 @@ djShop.config(['$routeProvider',
      when('/cart',{
          templateUrl: 'static/partials/shop/cart.html',
          controller: 'CartCtrl'
+      }).
+    when('/user',{
+        templateUrl: '/static/partials/userdata/create.html',
+        controller: 'UserCtrl'
       });
               
   }]);

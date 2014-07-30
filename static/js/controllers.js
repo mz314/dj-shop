@@ -70,3 +70,11 @@ djShopControllers.controller('CleanCartController', ['$scope', '$routeParams', '
     function($scope, $routeParams, $http) {
         
     }]);
+
+djShopControllers.controller('UserCtrl', ['$scope', '$routeParams', '$http',
+    function($scope, $routeParams, $http) {
+        
+      
+       // $scope.create_form.html('kupa');
+    
+    }]);

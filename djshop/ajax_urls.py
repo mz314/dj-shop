@@ -4,7 +4,7 @@ from django.conf import settings
 import cms.ajax_views
 import shop.views
 import shop.cart_view
-
+from userdata.views import *
 
 urlpatterns = patterns('',
 
@@ -18,4 +18,5 @@ urlpatterns = patterns('',
     url(r'^add_to_cart/(?P<id>\w+)/$',shop.cart_view.CartView.as_view()),
     url(r'^cart/$',shop.cart_view.CartList.as_view()),
     url(r'^cart/clean/$',shop.cart_view.CartClean.as_view()),
+    url(r'^user/create/$',create_user_form),
 )

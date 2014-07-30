@@ -11,6 +11,7 @@ class Country(models.Model):
 
 class UserData(models.Model):
     user=models.ForeignKey(User)
+
     country=models.ForeignKey(Country)
     city=models.CharField(max_length=128)
     zip=models.CharField(max_length=16)
