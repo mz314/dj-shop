@@ -28,9 +28,10 @@ djShop.config(['$routeProvider',
          templateUrl: 'static/partials/shop/cart.html',
          controller: 'CartCtrl'
       }).
-    when('/user',{
+    when('/user/create/',{
         templateUrl: '/static/partials/userdata/create.html',
         controller: 'UserCtrl'
       });
+      
               
   }]);

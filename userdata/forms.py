@@ -1,11 +1,12 @@
 from django import forms
 from django.contrib.auth.models import User
+from djangular.forms.angular_model import NgModelFormMixin
+from djangular.forms import NgFormValidationMixin
 from userdata.models import *
 
+"""
 
-
-
-class UserForm(forms.ModelForm):
+class UserForm(NgModelFormMixin,NgFormValidationMixin,forms.ModelForm):
     passowrd=forms.CharField(widget=forms.PasswordInput())
     password2=forms.CharField(widget=forms.PasswordInput())
     class Meta:
@@ -14,12 +15,21 @@ class UserForm(forms.ModelForm):
     def __init__(self):
         super(UserForm,self).__init__()
         self.fields['username'].help_text=None
+"""
 
 
-
-class UserDataForm(forms.ModelForm):
+class UserDataForm(NgModelFormMixin, NgFormValidationMixin,forms.ModelForm):
+    username=forms.CharField(label="Username")
+    first_name=forms.CharField(label="First name")
+    last_name=forms.CharField(label="Last name")
+    email=forms.CharField(label="Email")
+    password=forms.CharField(widget=forms.PasswordInput(),label="Password")
+    password2=forms.CharField(widget=forms.PasswordInput(),label="Repeat password")
     class Meta:
         model=UserData
         fields=['country','city','zip','address']
 
 
+    def __init__(self, *args, **kwargs):
+        kwargs.update(scope_prefix='userdata')
+        super(UserDataForm, self).__init__(*args, **kwargs)

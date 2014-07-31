@@ -40,17 +40,17 @@ djShopControllers.controller('ItemCtrl', ['$scope', '$routeParams', '$http',
 
 djShopControllers.controller('CartCtrl', ['$scope', '$routeParams', '$http',
     function($scope, $routeParams, $http) {
-        $scope.loadCart=function () {
+        $scope.loadCart = function() {
             $http.get('ajax/cart/').success(function(data) {
-            $scope.items = data;
+                $scope.items = data;
             });
         };
-        
+
         $scope.loadCart();
-        
+
         $scope.cleanCart = function() {
             $http.get('ajax/cart/clean/').success(function(data) {
-                    $scope.loadCart();
+                $scope.loadCart();
             });
         };
     }]);
@@ -68,17 +68,16 @@ djShopControllers.controller('CartAddController', ['$scope', '$routeParams', '$h
 
 djShopControllers.controller('CleanCartController', ['$scope', '$routeParams', '$http',
     function($scope, $routeParams, $http) {
-        
+
     }]);
 
-djShopControllers.controller('UserCtrl', ['$scope', '$routeParams', '$http','$sce',
+djShopControllers.controller('UserCtrl', ['$scope', '$routeParams', '$http', '$sce',
     function($scope, $routeParams, $http) {
-        
-      $http.get('ajax/user/create/').success(function(data) {
-         
-        
-      });
-        
-     
-    
+        $scope.submit = function() {
+          //  console.log($scope.userdata);
+            $http.post('/ajax/user/create/',$scope.userdata).success(function (data) {
+               
+                console.log(data); 
+            });
+        };
     }]);

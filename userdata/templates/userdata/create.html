@@ -1,0 +1,8 @@
+{% extends "theme.html" %}
+{% block content %}
+<form ng-controller="UserCtrl" name="{{ form.form_name }}">
+{{form.as_p}}
+
+    <button ng-click="submit()" ng-disabled="{{ form.form_name }}.$invalid">Submit</button>
+</form>
+    {% endblock %}

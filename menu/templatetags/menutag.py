@@ -22,7 +22,7 @@ class MenuNode(template.Node):
              elif i.type=='external':
                  i.href=i.link
              else:
-                 i.href='#/'+i.link
+                 i.href='/#/'+i.link
 
          t = template.loader.get_template('menu.html')
          return t.render(template.Context({'menu':menu,'items':items}))

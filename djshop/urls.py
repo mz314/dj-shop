@@ -4,6 +4,7 @@ from django.contrib import admin
 from django.conf import settings
 admin.autodiscover()
 import cms.views
+import userdata.urls
 import djshop.ajax_urls
 
 urlpatterns = patterns('',
@@ -11,6 +12,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$',cms.views.home,name='home'),
     url(r'^ajax/', include(djshop.ajax_urls)),
+    url(r'^user/',include(userdata.urls))
 )
 
 
