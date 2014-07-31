@@ -71,10 +71,14 @@ djShopControllers.controller('CleanCartController', ['$scope', '$routeParams', '
         
     }]);
 
-djShopControllers.controller('UserCtrl', ['$scope', '$routeParams', '$http',
+djShopControllers.controller('UserCtrl', ['$scope', '$routeParams', '$http','$sce',
     function($scope, $routeParams, $http) {
         
-      
-       // $scope.create_form.html('kupa');
+      $http.get('ajax/user/create/').success(function(data) {
+         
+        
+      });
+        
+     
     
     }]);

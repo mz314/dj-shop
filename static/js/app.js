@@ -3,7 +3,7 @@ var djShop = angular.module('djshop', [
   'ngSanitize',
     'djShopControllers'
  
-]);
+]);//.config(['$sce']);
 
 djShop.config(['$routeProvider',
   function($routeProvider) {
