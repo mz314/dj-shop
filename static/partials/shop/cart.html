@@ -4,6 +4,7 @@
             <th>Product</th>
             <th>Price</th>
             <th>Quantity</th>
+            <th>Total</th>
         </tr>
     </thead>
     <tbody>
@@ -17,9 +18,10 @@
             <td>
                 {{i.quantity}}
             </td>
+            <td>
+                {{i.quantity*i.itemdata.price}}
+            </td>
         </tr>
     </tbody>
 </table>
-
-    
-        <button type="button" ng-click="cleanCart()">Clear</button>
+<button type="button" ng-click="cleanCart()">Clear</button>

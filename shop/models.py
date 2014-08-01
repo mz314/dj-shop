@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models import Q
 import json
 
 
@@ -63,6 +64,14 @@ class CartItem(models.Model):
     user=models.ForeignKey(User)
     item=models.ForeignKey(Item)
     quantity=models.PositiveIntegerField()
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+        existing=CartItem.objects.filter(Q(user=self.user,item=self.item) & ~Q(pk=self.pk))
+        if len(existing)>0:
+            existing[0].quantity+=int(self.quantity)
+            existing[0].save()
+        else:
+            super(CartItem,self).save()
 
 
 

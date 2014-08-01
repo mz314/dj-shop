@@ -25,7 +25,7 @@ class CartView(View):
     def get(self,request,*args,**kwargs):
 
         item=Item.objects.get(pk=kwargs['id'])
-        ci=CartItem(item=item,user=request.user,quantity=1)
+        ci=CartItem(item=item,user=request.user,quantity=kwargs['quantity'])
 
         ci.save()
         return HttpResponse('OK')
