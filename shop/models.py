@@ -63,14 +63,7 @@ class CartItem(models.Model):
     user=models.ForeignKey(User)
     item=models.ForeignKey(Item)
     quantity=models.PositiveIntegerField()
-    def ToJSON(self):
-        dct=self.__dict__
-        idata=self.itemdata.__dict__
-        del idata['_state']
-        del dct['_state']
-        idata['price']=float(idata['price'])
-        dct['itemdata']=idata
-        return dct
+
 
 
 

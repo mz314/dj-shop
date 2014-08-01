@@ -33,6 +33,23 @@ class CartView(View):
 
 
 class CartList(CartView):
+    @staticmethod
+    def MakeJson(items):
+        json_items=[]
+        for i in items:
+            itm=i.__dict__
+            idata=itm['itemdata'].__dict__
+            del idata['_state']
+            idata['price']=float(idata['price'])
+            itm['itemdata']=idata
+            del itm['_state']
+            del itm['_item_cache']
+            print itm
+            json_items.append(itm)
+        return json_items
+
+
+
     def get(self,request,*args,**kwargs):
         from itertools import chain
         items=CartItem.objects.all()
@@ -40,10 +57,9 @@ class CartList(CartView):
         jsonitems=[]
         for i in items:
             i.itemdata=Item.objects.get(pk=i.item.pk)
-            i=i.ToJSON()
-
             jsonitems.append(i)
 
+        jsonitems=CartList.MakeJson(jsonitems)
         return HttpResponse(json.JSONEncoder().encode(jsonitems))
 
 class CartClean(CartView):

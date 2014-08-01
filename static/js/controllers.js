@@ -60,7 +60,9 @@ djShopControllers.controller('CartCtrl', ['$scope', '$routeParams', '$http',
 djShopControllers.controller('CartAddController', ['$scope', '$routeParams', '$http',
     function($scope, $routeParams, $http) {
         $scope.addToCart = function(item, id) {
-            $http.get('ajax/add_to_cart/' + id).success(function(data) {
+            var q=$scope.quantity;
+            
+            $http.get('ajax/add_to_cart/'+ id+'/'+q+'/').success(function(data) {
             });
         };
     }]);
