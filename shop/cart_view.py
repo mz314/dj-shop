@@ -64,5 +64,5 @@ class CartList(CartView):
 
 class CartClean(CartView):
     def get(self,request,*args,**kwargs):
-        self.reset(request)
+        CartItem.objects.filter(user=request.user).delete()
         return HttpResponse("OK")
