@@ -12,12 +12,17 @@ import json
 @csrf_exempt
 def create_user(request):
      in_data=json.loads(request.body)
-    # return HttpResponse(in_data)
-
      user=User()
      user.username=in_data['username']
      user.first_name=in_data['first_name']
      user.last_name=in_data['last_name']
      user.set_password(in_data['password'])
      user.save()
-     return HttpResponse('OK')
+     userdata=UserData()
+     userdata.address=in_data['address']
+     userdata.city=in_data['city']
+     userdata.country=Country.objects.get(pk=in_data['country'])
+     userdata.zip=in_data['zip']
+     userdata.user=user
+     userdata.save()
+     return HttpResponse(in_data['country'])

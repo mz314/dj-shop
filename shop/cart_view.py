@@ -4,50 +4,47 @@ from djshop.utils import *
 import json
 
 
+
+"""class CartItem(object):
+    def __init__(self,pk,quantity=1):
+        self.pk=pk
+        self.SetQuantity(quantity)
+
+    def inc(self,n=1):
+        self.quantity+=n
+
+    def SetQuantity(self,n):
+        self.quantity=n
+    def to_JSON(self):
+        return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
+"""
+
 class CartView(View):
-    def initCart(self,request):
-        try:
-            tmp=request.session['cart']
-        except KeyError:
-            self.reset(request)
 
-    def reset(self,request):
-        request.session['cart']=""
-
-    def get_cotents(self,request):
-        contents=request.session['cart']
-        if contents=="":
-            return list()
-        try:
-            contents=json.JSONDecoder().decode(contents)
-        except TypeError:
-            self.reset(request)
-            contents=[]
-        return contents
-
-    def update(self,request,cart):
-        cart=json.JSONEncoder().encode(cart)
-        request.session['cart']=cart
-
-    def add(self,request,item):
-        cart=self.get_cotents(request)
-        cart.append(item)
-        self.update(request,cart)
 
     def get(self,request,*args,**kwargs):
-        self.initCart(request)
-        self.add(request,kwargs['id'])
-        print request.session['cart']
+
+        item=Item.objects.get(pk=kwargs['id'])
+        ci=CartItem(item=item,user=request.user,quantity=1)
+
+        ci.save()
         return HttpResponse('OK')
 
 
 
 class CartList(CartView):
     def get(self,request,*args,**kwargs):
-        cart=self.get_cotents(request)
-        items=Item.objects.filter(pk__in=cart)
-        return jret(items)
+        from itertools import chain
+        items=CartItem.objects.all()
+        #items=[i for i in items]
+        jsonitems=[]
+        for i in items:
+            i.itemdata=Item.objects.get(pk=i.item.pk)
+            i=i.ToJSON()
 
+            jsonitems.append(i)
+
+        return HttpResponse(json.JSONEncoder().encode(jsonitems))
 
 class CartClean(CartView):
     def get(self,request,*args,**kwargs):

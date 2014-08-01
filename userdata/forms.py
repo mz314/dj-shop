@@ -17,17 +17,20 @@ class UserForm(NgModelFormMixin,NgFormValidationMixin,forms.ModelForm):
         self.fields['username'].help_text=None
 """
 
+class UserDataFormBasic(forms.ModelForm):
+    class Meta:
+        model=UserData
+        fields=['country','city','zip','address']
 
-class UserDataForm(NgModelFormMixin, NgFormValidationMixin,forms.ModelForm):
+
+class UserDataForm(NgModelFormMixin, NgFormValidationMixin,UserDataFormBasic):
     username=forms.CharField(label="Username")
     first_name=forms.CharField(label="First name")
     last_name=forms.CharField(label="Last name")
     email=forms.CharField(label="Email")
     password=forms.CharField(widget=forms.PasswordInput(),label="Password")
     password2=forms.CharField(widget=forms.PasswordInput(),label="Repeat password")
-    class Meta:
-        model=UserData
-        fields=['country','city','zip','address']
+
 
 
     def __init__(self, *args, **kwargs):

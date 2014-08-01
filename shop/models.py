@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+import json
 
 
 class Tax(models.Model):
@@ -50,11 +51,26 @@ class Item(models.Model):
         return self.name
 
 
+
+
 class Order(models.Model):
     datetime=models.DateTimeField(auto_now=True)
 
 
 
+
+class CartItem(models.Model):
+    user=models.ForeignKey(User)
+    item=models.ForeignKey(Item)
+    quantity=models.PositiveIntegerField()
+    def ToJSON(self):
+        dct=self.__dict__
+        idata=self.itemdata.__dict__
+        del idata['_state']
+        del dct['_state']
+        idata['price']=float(idata['price'])
+        dct['itemdata']=idata
+        return dct
 
 
 
