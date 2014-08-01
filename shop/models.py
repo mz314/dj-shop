@@ -30,28 +30,32 @@ class Category(models.Model):
 
 
 
-class ItemImage(models.Model):
-    #file=models.FileField()
-    title=models.CharField(max_length=128,blank=True,null=True)
-    main=models.BooleanField(blank=True,default=False)
 
-    def __unicode__(self):
-        return self.title
 
 class Item(models.Model):
     name=models.CharField(max_length=128)
     descripion=models.TextField(blank=True,null=True)
     price=models.DecimalField(decimal_places=2,max_digits=10)
     categories=models.ManyToManyField(Category)
-    images=models.ManyToManyField(ItemImage,null=True,blank=True)
+    #images=models.ManyToManyField(ItemImage,null=True,blank=True)
     tax=models.ForeignKey(Tax,null=True,blank=True)
     currency=models.ForeignKey(Currency)
+
 
 
     def __unicode__(self):
         return self.name
 
 
+
+class ItemImage(models.Model):
+    file=models.FileField(upload_to='products',null=True,blank=True)
+    title=models.CharField(max_length=128,blank=True,null=True)
+    main_image=models.BooleanField(blank=True,default=False)
+    item=models.ForeignKey(Item)
+
+    def __unicode__(self):
+        return self.title
 
 
 class Order(models.Model):

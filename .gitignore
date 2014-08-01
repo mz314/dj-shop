@@ -1,3 +1,6 @@
 *.pyc
-
+/media/products/*.png
+/media/products/*.jpg
+/media/products/*.jpeg
+/media/products/*.gif
 /nbproject/private/

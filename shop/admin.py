@@ -1,12 +1,18 @@
 from django.contrib import admin
 from shop.models import *
 
+class ItemImageInline(admin.TabularInline):
+    model=ItemImage
+
+
 class CategoryAdmin(admin.ModelAdmin):
     pass
 
 
 class ItemAdmin(admin.ModelAdmin):
-    pass
+    inlines=[
+        ItemImageInline,
+    ]
 
 
 class TaxAdmin(admin.ModelAdmin):
