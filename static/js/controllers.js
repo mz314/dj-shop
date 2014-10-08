@@ -53,6 +53,7 @@ djShopControllers.controller('CartCtrl', ['$scope', '$routeParams', '$http',
                 $scope.loadCart();
             });
         };
+        
     }]);
 
 
