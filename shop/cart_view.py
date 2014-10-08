@@ -69,4 +69,5 @@ class CartClean(CartView):
 
 
 class CartCheckout(CartList):
-    pass 
+    def summary(self,request,*args,**kwargs):
+        pass
