@@ -69,4 +69,4 @@ class CartClean(CartView):
 
 
 class CartCheckout(CartList):
-    pass
+    pass 
