@@ -31,3 +31,5 @@ def item(request,id):
 def addToCart(request,id):
     #initCart(request)
     pass
+
+

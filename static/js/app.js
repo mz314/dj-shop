@@ -28,6 +28,10 @@ djShop.config(['$routeProvider',
          templateUrl: 'static/partials/shop/cart.html',
          controller: 'CartCtrl'
       }).
+               when('/checkout',{
+         templateUrl: 'static/partials/shop/checkout.html',
+         controller: 'CheckoutController'
+      }).
     when('/user/create/',{
         templateUrl: '/static/partials/userdata/create.html',
         controller: 'UserCtrl'

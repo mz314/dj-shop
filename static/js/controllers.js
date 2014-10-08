@@ -54,6 +54,8 @@ djShopControllers.controller('CartCtrl', ['$scope', '$routeParams', '$http',
             });
         };
         
+      
+        
     }]);
 
 
@@ -94,4 +96,10 @@ djShopControllers.controller('ItemImagesCtrl', ['$scope', '$routeParams', '$http
                 console.log(data); 
             });
        
+    }]);
+
+
+djShopControllers.controller('CheckoutController', ['$scope', '$routeParams', '$http',
+    function($scope, $routeParams, $http) {
+
     }]);

@@ -66,3 +66,7 @@ class CartClean(CartView):
     def get(self,request,*args,**kwargs):
         CartItem.objects.filter(user=request.user).delete()
         return HttpResponse("OK")
+
+
+class CartCheckout(CartList):
+    pass

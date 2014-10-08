@@ -1,0 +1,21 @@
+ul.shop-images li {
+    list-style-type: none;
+    float: left;
+}
+ul.shop-images li img,ul.shop-images {
+    height: 120px;
+}
+
+/*ul.shop-images li img:hover {
+    width: auto; height: auto;
+    border: 1px solid black;
+    position: absolute;
+   
+}*/
+
+ul.shop-images {
+    clear: both;
+    float: none;
+    display: block;
+    width: 100%;
+}
