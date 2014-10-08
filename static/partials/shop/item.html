@@ -7,11 +7,18 @@
 <div>
     {{product.fields.price}}
 </div>
+<div ng-controller="ItemImagesCtrl">
+    <div style="clear: both; float: none">
+        <ul class="shop-images">
+            <li  ng-repeat="i in images">
+                <img src="/media/{{i.fields.file}}" />
+            </li>
+        </ul>
+    </div>
+</div>
 <div ng-controller="CartAddController">
     <form class="add-form">
-
-     
         <input type="number" id="quantity" ng-model="quantity" />
-     <button type="button" id="add-to-cart" ng-click="addToCart(item,product.pk)">Add to cart</button>
+        <button type="button" id="add-to-cart" ng-click="addToCart(item, product.pk)">Add to cart</button>
     </form>
 </div>

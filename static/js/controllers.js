@@ -83,3 +83,14 @@ djShopControllers.controller('UserCtrl', ['$scope', '$routeParams', '$http', '$s
             });
         };
     }]);
+
+djShopControllers.controller('ItemImagesCtrl', ['$scope', '$routeParams', '$http', '$sce',
+    function($scope, $routeParams, $http) {
+   
+          //  console.log($scope.userdata);
+              $http.get('ajax/item/images/' + $routeParams.itemId).success(function (data) {
+                $scope.images=data;
+                console.log(data); 
+            });
+       
+    }]);

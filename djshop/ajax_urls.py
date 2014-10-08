@@ -20,5 +20,6 @@ urlpatterns = patterns('',
     url(r'^cart/$',shop.cart_view.CartList.as_view()),
     url(r'^cart/clean/$',shop.cart_view.CartClean.as_view()),
     url(r'^user/create/$',userdata.ajax_views.create_user),
+    url(r'^item/images/(?P<id>\w+)/$',shop.views.itemImages),
 
 )

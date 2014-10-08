@@ -16,8 +16,13 @@ def category(request,id=None):
     return jret(categories)
 
 
+def itemImages(request,id):
+    images=ItemImage.objects.filter(item_id=id)
+    return jret(list(images))
+
 def item(request,id):
     item=Item.objects.get(pk=id)
+
     return jret([item])
 
 
