@@ -4,6 +4,7 @@ from django.db.models import Q
 import json
 
 
+
 class Tax(models.Model):
     name=models.CharField(max_length=64)
     amount=models.DecimalField(decimal_places=2,max_digits=10)
@@ -19,6 +20,12 @@ class Currency(models.Model):
         return self.name+" (%s)" % (self.symbol,)
 
 
+class Priced(models.Model):
+    class Meta:
+        abstract=True
+    price=models.DecimalField(decimal_places=2,max_digits=10,null=True,blank=True,default=0.0)
+    tax=models.ForeignKey(Tax,null=True,blank=True)
+    currency=models.ForeignKey(Currency,null=True,blank=True)
 
 class Category(models.Model):
     name=models.CharField(max_length=128)
@@ -32,16 +39,13 @@ class Category(models.Model):
 
 
 
-class Item(models.Model):
+
+class Item(Priced):
     name=models.CharField(max_length=128)
     descripion=models.TextField(blank=True,null=True)
-    price=models.DecimalField(decimal_places=2,max_digits=10)
+
     categories=models.ManyToManyField(Category)
     #images=models.ManyToManyField(ItemImage,null=True,blank=True)
-    tax=models.ForeignKey(Tax,null=True,blank=True)
-    currency=models.ForeignKey(Currency)
-
-
 
     def __unicode__(self):
         return self.name
@@ -58,16 +62,30 @@ class ItemImage(models.Model):
         return self.title
 
 
-class Order(models.Model):
-    datetime=models.DateTimeField(auto_now=True)
+class ShipmentMethod(Priced):
+    name=models.CharField(max_length=128,blank=False,null=False)
+    enabled=models.BooleanField(blank=True,default=True)
+    def __unicode__(self):
+        return self.name
 
 
 
+class ItemAbs(models.Model):
+    class Meta:
+        abstract=True
 
-class CartItem(models.Model):
-    user=models.ForeignKey(User)
     item=models.ForeignKey(Item)
     quantity=models.PositiveIntegerField()
+
+    def fromItem(self,other_item):
+        self.item=other_item.item
+        self.quantity=other_item.quantity
+
+
+
+class CartItem(ItemAbs):
+    user=models.ForeignKey(User)
+
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
         existing=CartItem.objects.filter(Q(user=self.user,item=self.item) & ~Q(pk=self.pk))
@@ -76,6 +94,22 @@ class CartItem(models.Model):
             existing[0].save()
         else:
             super(CartItem,self).save()
+
+class Order(models.Model):
+    datetime=models.DateTimeField(auto_now=True)
+    user=models.ForeignKey(User,null=False)
+
+
+
+
+
+class OrderItem(ItemAbs):
+    order=models.ForeignKey(Order)
+
+
+
+
+
 
 
 

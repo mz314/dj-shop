@@ -68,6 +68,6 @@ class CartClean(CartView):
         return HttpResponse("OK")
 
 
-class CartCheckout(CartList):
-    def summary(self,request,*args,**kwargs):
+class CartCheckout(CartView):
+    def get(self,request,*args,**kwargs):
         pass

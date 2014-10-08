@@ -23,7 +23,11 @@ class CurrencyAdmin(admin.ModelAdmin):
     pass
 
 
+class ShipmentAdmin(admin.ModelAdmin):
+    pass
+
 admin.site.register(Category,CategoryAdmin)
 admin.site.register(Item,ItemAdmin)
 admin.site.register(Tax,TaxAdmin)
 admin.site.register(Currency,CurrencyAdmin)
+admin.site.register(ShipmentMethod,ShipmentAdmin)

@@ -45,6 +45,12 @@ djShopControllers.controller('CartCtrl', ['$scope', '$routeParams', '$http',
                 $scope.items = data;
             });
         };
+        
+        $scope.loadPayments=function () {
+             $http.get('ajax/payments/').success(function(data) {
+                console.log(data);
+            });
+        }
 
         $scope.loadCart();
 
