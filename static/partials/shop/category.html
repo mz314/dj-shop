@@ -2,6 +2,8 @@ Subcategories
 <div ng-repeat="c in categories" class="shop-subcats">
     <div>
         <div>
+           
+            
             <a href="#/shop/{{c.pk}}">
                 {{c.fields.name}}
             </a>
@@ -12,7 +14,8 @@ Subcategories
 Items
 <div ng-repeat="i in items" class="shop-items">
     <div>
-        <div><a href="#/details/{{i.pk}}/">{{i.fields.name}}</a></div>
+        <div>
+            <a href="#/details/{{i.pk}}/">{{i.fields.name}}</a></div>
         <div>{{i.fields.price}}</div>
     </div>
 </div>

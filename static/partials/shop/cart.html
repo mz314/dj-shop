@@ -25,6 +25,20 @@
     </tbody>
 </table>
 <button type="button" ng-click="cleanCart()">Clear</button>
-<!--<a href="/#/checkout">
-  Checkout  
-</a>-->
+
+<ul>
+    <li ng-repeat="s in shipment">
+        {{s.name}}<input type="radio" name="shipment" ng-value="{{s}}" ng-model="$parent.sprice"  />
+    </li>
+</ul>
+
+<div>
+    Shipment cost: {{sprice.price}}
+    
+</div>
+
+<button ng-click="checkout(sprice)">
+    Checkout  
+</button>
+  
+

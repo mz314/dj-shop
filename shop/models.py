@@ -65,8 +65,8 @@ class ItemImage(models.Model):
 class ShipmentMethod(Priced):
     name=models.CharField(max_length=128,blank=False,null=False)
     enabled=models.BooleanField(blank=True,default=True)
-    def __unicode__(self):
-        return self.name
+    #def __unicode__(self):
+    #    return self.name
 
 
 
@@ -98,6 +98,7 @@ class CartItem(ItemAbs):
 class Order(models.Model):
     datetime=models.DateTimeField(auto_now=True)
     user=models.ForeignKey(User,null=False)
+    shipment=models.ForeignKey(ShipmentMethod)
 
 
 

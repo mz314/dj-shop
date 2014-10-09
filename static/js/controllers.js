@@ -38,6 +38,7 @@ djShopControllers.controller('ItemCtrl', ['$scope', '$routeParams', '$http',
 
     }]);
 
+
 djShopControllers.controller('CartCtrl', ['$scope', '$routeParams', '$http',
     function($scope, $routeParams, $http) {
         $scope.loadCart = function() {
@@ -46,13 +47,25 @@ djShopControllers.controller('CartCtrl', ['$scope', '$routeParams', '$http',
             });
         };
         
-        $scope.loadPayments=function () {
-             $http.get('ajax/payments/').success(function(data) {
-                console.log(data);
+        $scope.checkout=function(shipment) {
+            
+            console.log(shipment);
+            $http.get('ajax/cart/checkout/'+shipment.id+'/').success(function (data) {
+               console.log(data);
             });
         }
+        
+        $scope.loadPayments=function () {
+             $http.get('ajax/cart/shipment/').success(function(data) {
+                $scope.shipment=data;
+            });
+        }
+        
+        $scope.sprice=0;
+        
 
         $scope.loadCart();
+        $scope.loadPayments();
 
         $scope.cleanCart = function() {
             $http.get('ajax/cart/clean/').success(function(data) {
@@ -105,7 +118,3 @@ djShopControllers.controller('ItemImagesCtrl', ['$scope', '$routeParams', '$http
     }]);
 
 
-djShopControllers.controller('CheckoutController', ['$scope', '$routeParams', '$http',
-    function($scope, $routeParams, $http) {
-
-    }]);
