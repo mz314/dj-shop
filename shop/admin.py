@@ -26,6 +26,14 @@ class CurrencyAdmin(admin.ModelAdmin):
 class ShipmentAdmin(admin.ModelAdmin):
     pass
 
+
+class OrderItemInline(admin.StackedInline):
+    model=OrderItem
+
+class OrderAdmin(admin.ModelAdmin):
+    inlines = [OrderItemInline]
+
+admin.site.register(Order,OrderAdmin)
 admin.site.register(Category,CategoryAdmin)
 admin.site.register(Item,ItemAdmin)
 admin.site.register(Tax,TaxAdmin)

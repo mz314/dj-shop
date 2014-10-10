@@ -4,18 +4,18 @@ Subcategories
         <div>
            
             
-            <a href="#/shop/{{c.pk}}">
-                {{c.fields.name}}
+            <a href="#/shop/{{c.id}}">
+                {{c.name}}
             </a>
         </div>
-        <div>{{c.fields.description}}</div>
+        <div>{{c.description}}</div>
     </div>
 </div>
 Items
 <div ng-repeat="i in items" class="shop-items">
     <div>
         <div>
-            <a href="#/details/{{i.pk}}/">{{i.fields.name}}</a></div>
-        <div>{{i.fields.price}}</div>
+            <a href="#/details/{{i.id}}/">{{i.name}}</a></div>
+        <div>{{i.price}}</div>
     </div>
 </div>

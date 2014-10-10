@@ -19,11 +19,20 @@
     <title>DJ SHOP</title>
 </head>
 <body>
+<div class="menu-header">
 {% menutag "main" %}
+</div>
+<div class="content">
 {% block content %}
-<div ng-view>
+<div ng-view >
 
 </div>
 {% endblock %}
-</body>
+</div>
+{% block footer %}
+<div class="footer">
+footer
+</div>
+{% endblock %}
+        </body>
 </html>

@@ -90,14 +90,17 @@ class CartCheckout(CartView):
 
         order=Order()
         order.user=request.user
-        order.shipment_id
+        order.shipment=ShipmentMethod.objects.get(pk=kwargs['shipment_id'])
         order.save()
 
         cart_items=CartItem.objects.filter(user=request.user)
 
+        for ci in cart_items:
+            i=OrderItem()
+            i.fromItem(ci)
+            i.order=order
+            i.save()
 
-
-        #for ci in cart_items:
-
+        CartItem.objects.filter(user=request.user).delete()
 
         return HttpResponse("OK")

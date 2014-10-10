@@ -40,8 +40,10 @@ INSTALLED_APPS = (
     'cms',
     'shop',
     'userdata',
+    'site_options',
     'south',
-      'djangular',
+    'djangular',
+    'rest_framework'
 
 )
 

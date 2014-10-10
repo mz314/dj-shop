@@ -21,10 +21,10 @@ djShopControllers.controller('ShopCtrl', ['$scope', '$routeParams', '$http',
         if (typeof $routeParams.catId === 'undefined') {
             $routeParams.catId = '';
         }
-        $http.get('ajax/category/' + $routeParams.catId).success(function(data) {
+        $http.get('api/categories/' + $routeParams.catId).success(function(data) {
             $scope.categories = data;
         });
-        $http.get('ajax/items/' + $routeParams.catId).success(function(data) {
+        $http.get('api/items/' + $routeParams.catId).success(function(data) {
             $scope.items = data;
         });
     }]);
@@ -47,11 +47,17 @@ djShopControllers.controller('CartCtrl', ['$scope', '$routeParams', '$http',
             });
         };
         
+          $scope.cleanCart = function() {
+            $http.get('ajax/cart/clean/').success(function(data) {
+                $scope.loadCart();
+            });
+        };
+        
         $scope.checkout=function(shipment) {
             
             console.log(shipment);
             $http.get('ajax/cart/checkout/'+shipment.id+'/').success(function (data) {
-               console.log(data);
+               $scope.loadCart();
             });
         }
         
@@ -67,11 +73,7 @@ djShopControllers.controller('CartCtrl', ['$scope', '$routeParams', '$http',
         $scope.loadCart();
         $scope.loadPayments();
 
-        $scope.cleanCart = function() {
-            $http.get('ajax/cart/clean/').success(function(data) {
-                $scope.loadCart();
-            });
-        };
+      
         
       
         
