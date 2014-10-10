@@ -2,8 +2,8 @@ Subcategories
 <div ng-repeat="c in categories" class="shop-subcats">
     <div>
         <div>
-           
-            
+
+
             <a href="#/shop/{{c.id}}">
                 {{c.name}}
             </a>
@@ -12,10 +12,12 @@ Subcategories
     </div>
 </div>
 Items
-<div ng-repeat="i in items" class="shop-items">
-    <div>
-        <div>
-            <a href="#/details/{{i.id}}/">{{i.name}}</a></div>
-        <div>{{i.price}}</div>
+<div class="shop-items">
+    <div ng-repeat="i in items" class="shop-item">
+                <a href="#/details/{{i.id}}/">
+                <img src="/media/{{i.image}}" width="64" class="item-image" />
+                <div class="item-name">{{i.name}}</div>
+                </a>
+                <div class="item-price">{{i.price}}</div>
     </div>
 </div>

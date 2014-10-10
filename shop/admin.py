@@ -3,7 +3,7 @@ from shop.models import *
 
 class ItemImageInline(admin.TabularInline):
     model=ItemImage
-
+    extra=0
 
 class CategoryAdmin(admin.ModelAdmin):
     pass
@@ -32,6 +32,7 @@ class OrderItemInline(admin.StackedInline):
 
 class OrderAdmin(admin.ModelAdmin):
     inlines = [OrderItemInline]
+    list_display = ('pk','user','datetime')
 
 admin.site.register(Order,OrderAdmin)
 admin.site.register(Category,CategoryAdmin)

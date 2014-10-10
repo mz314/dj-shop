@@ -100,6 +100,8 @@ class Order(models.Model):
     user=models.ForeignKey(User,null=False)
     shipment=models.ForeignKey(ShipmentMethod)
 
+    def __unicode__(self):
+        return self.pk
 
 
 

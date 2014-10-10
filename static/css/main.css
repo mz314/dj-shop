@@ -45,3 +45,11 @@ html {
     
 }
 
+div.shop-item {
+    float: left;
+    margin: 10px;
+}
+
+div.item-name, div.item-price {
+    text-align: center;
+}
