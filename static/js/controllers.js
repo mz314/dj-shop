@@ -42,7 +42,7 @@ djShopControllers.controller('ItemCtrl', ['$scope', '$routeParams', '$http',
 djShopControllers.controller('CartCtrl', ['$scope', '$routeParams', '$http',
     function($scope, $routeParams, $http) {
         $scope.loadCart = function() {
-            $http.get('ajax/cart/').success(function(data) {
+            $http.get('api/cart').success(function(data) {
                 $scope.items = data;
             });
         };
@@ -86,7 +86,7 @@ djShopControllers.controller('CartAddController', ['$scope', '$routeParams', '$h
         $scope.addToCart = function(item, id) {
             var q=$scope.quantity;
             
-            $http.get('ajax/add_to_cart/'+ id+'/'+q+'/').success(function(data) {
+            $http.post('api/cart/'+ id+'/'+q).success(function(data) {
             });
         };
     }]);

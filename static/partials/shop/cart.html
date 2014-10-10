@@ -10,16 +10,16 @@
     <tbody>
         <tr ng-repeat="i in items">
             <td>
-                {{i.itemdata.name}}
+                {{i.item.name}}
             </td>
             <td>
-                {{i.itemdata.price}}
+                {{i.item.price}}
             </td>
             <td>
                 {{i.quantity}}
             </td>
             <td>
-                {{i.quantity*i.itemdata.price}}
+                {{i.quantity*i.item.price}}
             </td>
         </tr>
     </tbody>

@@ -1,34 +1,30 @@
 from django.views.generic import TemplateView,View
 from shop.models import *
 from djshop.utils import *
+from shop.serializers import *
+from rest_framework import generics
+from rest_framework.views import APIView
+from rest_framework.response import Response
 import json
 
 
+class CartView(APIView):
+    serializer_class = CartSerializer
 
-"""class CartItem(object):
-    def __init__(self,pk,quantity=1):
-        self.pk=pk
-        self.SetQuantity(quantity)
-
-    def inc(self,n=1):
-        self.quantity+=n
-
-    def SetQuantity(self,n):
-        self.quantity=n
-    def to_JSON(self):
-        return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
-"""
-
-class CartView(View):
-
+    def post(self,request,format=None,*args,**kwargs):
+        try:
+            item=Item.objects.get(pk=kwargs['item_id'])
+        except Item.DoesNotExist:
+            return Response('Wrong item_id',status=500)
+        ci=CartItem(item=item,user=request.user,quantity=kwargs['quantity'])
+        ci.save()
+        return Response('OK')
 
     def get(self,request,*args,**kwargs):
+        items = CartItem.objects.filter(user=request.user)
+        serializer = CartSerializer(items, many=True)
+        return Response(serializer.data)
 
-        item=Item.objects.get(pk=kwargs['id'])
-        ci=CartItem(item=item,user=request.user,quantity=kwargs['quantity'])
-
-        ci.save()
-        return HttpResponse('OK')
 
 
 
