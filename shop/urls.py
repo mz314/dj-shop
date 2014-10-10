@@ -2,6 +2,7 @@ from django.conf.urls import patterns, include, url
 
 from shop import rest_views as rviews
 from shop import cart_view as cviews
+from django.views.decorators.csrf import csrf_exempt
 
 urlpatterns = patterns('',
 

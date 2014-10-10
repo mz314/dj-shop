@@ -5,11 +5,16 @@ from shop.serializers import *
 from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 import json
+
+
 
 
 class CartView(APIView):
     serializer_class = CartSerializer
+
 
     def post(self,request,format=None,*args,**kwargs):
         try:
@@ -19,6 +24,8 @@ class CartView(APIView):
         ci=CartItem(item=item,user=request.user,quantity=kwargs['quantity'])
         ci.save()
         return Response('OK')
+
+
 
     def get(self,request,*args,**kwargs):
         items = CartItem.objects.filter(user=request.user)

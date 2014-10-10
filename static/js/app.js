@@ -1,6 +1,7 @@
 var djShop = angular.module('djshop', [
   'ngRoute',
   'ngSanitize',
+  'ngCookies',
     'djShopControllers'
  
 ]);//.config(['$sce']);

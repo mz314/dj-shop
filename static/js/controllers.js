@@ -81,11 +81,12 @@ djShopControllers.controller('CartCtrl', ['$scope', '$routeParams', '$http',
 
 
 
-djShopControllers.controller('CartAddController', ['$scope', '$routeParams', '$http',
-    function($scope, $routeParams, $http) {
+djShopControllers.controller('CartAddController', ['$scope', '$routeParams', '$http','$cookies',
+    function($scope, $routeParams, $http,$cookies) {
         $scope.addToCart = function(item, id) {
             var q=$scope.quantity;
             
+            $http.defaults.headers.post['X-CSRFToken']=$cookies.csrftoken;
             $http.post('api/cart/'+ id+'/'+q).success(function(data) {
             });
         };
