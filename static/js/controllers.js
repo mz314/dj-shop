@@ -99,7 +99,20 @@ djShopControllers.controller('CleanCartController', ['$scope', '$routeParams', '
     }]);
 
 djShopControllers.controller('UserCtrl', ['$scope', '$routeParams', '$http', '$sce',
-    function($scope, $routeParams, $http) {
+    function($scope, $routeParams, $http,$sce,$interpolateProvider) {
+        
+    
+        $scope.login=function() {
+            console.log($scope.login_form);
+            $http.post('/user/login',$scope.login_form).success(function (data) {
+                
+            });
+        };
+        
+       
+        
+       // $scope.loginForm();
+        
         $scope.submit = function() {
           //  console.log($scope.userdata);
             $http.post('/ajax/user/create/',$scope.userdata).success(function (data) {
@@ -121,3 +134,9 @@ djShopControllers.controller('ItemImagesCtrl', ['$scope', '$routeParams', '$http
     }]);
 
 
+djShopControllers.controller('UserPanelController', ['$scope', '$routeParams', '$http', '$sce',
+    function($scope, $routeParams, $http) {
+   
+          
+       
+    }]);

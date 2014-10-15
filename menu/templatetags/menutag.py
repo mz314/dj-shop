@@ -1,7 +1,8 @@
+# -*- coding: utf8 -*-
 from menu.models import Menu, MenuItem
 from django import template
 
-
+#TODO: brać to ajaxem
 class MenuNode(template.Node):
     def __init__(self,menu_tag):
         self.menu_tag=menu_tag.replace('"',"")
@@ -10,6 +11,8 @@ class MenuNode(template.Node):
 
 
     def render(self, context):
+         t = template.loader.get_template('menu.html')
+         request=context['request']
          try:
             menu=Menu.objects.get(tag=self.menu_tag)
          except Menu.DoesNotExist:
@@ -21,11 +24,21 @@ class MenuNode(template.Node):
                  i.href='/'+i.link
              elif i.type=='external':
                  i.href=i.link
-             else:
-                 i.href='/#/'+i.link
+             elif i.type=='user':
+                 i.href=i.link
+                 if request.user.is_authenticated():
+                    i.label=u"Logged as "+request.user.username
+                    i.link="userpanel"
 
-         t = template.loader.get_template('menu.html')
+             if i.type not in ('slash','external'):
+                i.href='/#/'+i.link
+
+
          return t.render(template.Context({'menu':menu,'items':items}))
+
+
+register=template.Library()
+
 
 def menu_tag_proc(parser,token):
     try:
@@ -34,5 +47,5 @@ def menu_tag_proc(parser,token):
         raise template.TemplateSyntaxError("%r tag requires a single argument" % token.contents.split()[0])
     return MenuNode(menu_tag)
 
-register=template.Library()
+
 register.tag('menutag', menu_tag_proc)

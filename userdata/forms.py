@@ -23,6 +23,14 @@ class UserDataFormBasic(forms.ModelForm):
         fields=['country','city','zip','address']
 
 
+class LoginForm(NgModelFormMixin,NgFormValidationMixin,forms.Form):
+    username=forms.CharField(label="User name")
+    password=forms.CharField(label="Password")
+    def __init__(self, *args, **kwargs):
+        kwargs.update(scope_prefix='login_user')
+        super(LoginForm, self).__init__(*args, **kwargs)
+
+
 class UserDataForm(NgModelFormMixin, NgFormValidationMixin,UserDataFormBasic):
     username=forms.CharField(label="Username")
     first_name=forms.CharField(label="First name")

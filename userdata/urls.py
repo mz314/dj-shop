@@ -4,12 +4,11 @@ from django.contrib import admin
 from django.conf import settings
 
 from userdata.views import *
-from userdata.rest_views import *
-
+from userdata.form_views import *
 
 urlpatterns = patterns('',
-    url(r'^create/$',create_user),
-    url(r'get',UserDataView.as_view())
+                       url(r'^create/$', create_user),
+                       url(r'^logout/$', logout_user,name='logout'),
+                       url(r'^login$', login_user,name='login'),
+
 )
-
-

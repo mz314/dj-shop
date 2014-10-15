@@ -24,7 +24,7 @@ class CurrencyAdmin(admin.ModelAdmin):
 
 
 class ShipmentAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('name','enabled')
 
 
 class OrderItemInline(admin.StackedInline):

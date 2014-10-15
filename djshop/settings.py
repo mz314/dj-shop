@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -83,14 +84,20 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 #STATIC_ROOT=os.path.join(BASE_DIR, 'static')
-MEDIA_ROOT='/home/maciek/http/dj-shop/djshop/media'
-
+MEDIA_ROOT = '/home/maciek/http/dj-shop/djshop/media'
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
-
-MEDIA_URL='/media/'
+MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
 TEMPLATE_DIRS = (
     BASE_DIR + '/djshop/templates/'
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+    'djshop.context_processor.global_vars',
+    'django.core.context_processors.static',
+    'django.core.context_processors.request',
+    'django.core.context_processors.media',
 )

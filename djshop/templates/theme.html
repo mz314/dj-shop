@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 {% load menutag %}
-<html ng-app="djshop">
+<html>
 <head>
     {% load staticfiles %}
     <link rel="stylesheet" href="{% static "bower_components/bootstrap/dist/css/bootstrap.min.css" %}" />
@@ -11,28 +11,29 @@
     <script src="{% static "bower_components/angular-route/angular-route.js" %}"></script>
     <script src="{% static "bower_components/angular-cookies/angular-cookies.min.js" %}"></script>
     <script src="{% static "js/angular-sanitize.js" %}"></script>
+    <script src="{% static "js/angular.ng-modules.js" %}"></script>
     <script src="{% static "js/app.js" %}"></script>
     
     <script src="{% static "js/controllers.js" %}"></script>
 
 
 
-    <title>DJ SHOP</title>
+    <title>{{shop_name}}</title>
 </head>
 <body>
 <div class="menu-header">
 {% menutag "main" %}
 </div>
-<div class="content">
+<div class="content"  >
 {% block content %}
-<div ng-view >
+<div ng-view ng-app="djshop">
 
 </div>
 {% endblock %}
 </div>
 {% block footer %}
 <div class="footer">
-footer
+ {{footer_text}}
 </div>
 {% endblock %}
         </body>

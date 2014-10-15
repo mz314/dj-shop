@@ -12,6 +12,7 @@ class MenuItem(models.Model):
         ('hash','Hash'),
         ('slash','Regular'),
         ('link','External'),
+        ('user','User')
     )
     label=models.CharField(max_length=64)
     link=models.CharField(max_length=128,blank=True,default='')

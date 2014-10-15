@@ -8,6 +8,7 @@ from shop import rest_views as sviews
 
 admin.autodiscover()
 import cms.views
+import userdata.rest_urls
 import userdata.urls
 import djshop.ajax_urls
 import shop.urls
@@ -21,7 +22,8 @@ import shop.urls
 
 urlpatterns = patterns('',
     url(r'^api/', include(shop.urls)),
-    url(r'^api/user', include(userdata.urls)),
+    url(r'^api/user', include(userdata.rest_urls)),
+    url(r'^user/', include(userdata.urls)),
     url(r'^cms/', include('cms.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$',cms.views.home,name='home'),
