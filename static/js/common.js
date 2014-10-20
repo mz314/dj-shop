@@ -1,6 +1,6 @@
 function initSpinners() {
-    console.log('is');
-    $(document).bind('DOMNodeInserted', function(event) {
+   
+//    $(document).bind('DOMNodeInserted', function(event) {
             
            
 //           $(event.target).each(function () {
@@ -15,7 +15,7 @@ function initSpinners() {
             //$(this).html(html);
 
        
-    });
+//    });
 }
 
 $(document).ready(function() {

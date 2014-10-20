@@ -12,7 +12,7 @@ import json
 
 
 
-class CartView(APIView):
+class CartView(generics.ListAPIView):
     serializer_class = CartSerializer
 
 
@@ -88,12 +88,18 @@ class CartShipment(CartView):
         return HttpResponse(json.JSONEncoder().encode(CartList.MakeJson(methods,None)))
 
 
+
+
+
 class CartCheckout(CartView):
+
+
     def get(self,request,*args,**kwargs):
 
         order=Order()
         order.user=request.user
         order.shipment=ShipmentMethod.objects.get(pk=kwargs['shipment_id'])
+        order.payment=PaymentMethod.objects.get(pk=kwargs['payment_id'])
         order.save()
 
         cart_items=CartItem.objects.filter(user=request.user)
@@ -106,4 +112,4 @@ class CartCheckout(CartView):
 
         CartItem.objects.filter(user=request.user).delete()
 
-        return HttpResponse("OK")
+        return HttpResponse(str(order.pk))

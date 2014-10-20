@@ -29,9 +29,9 @@ djShop.config(['$routeProvider','$interpolateProvider',
                     templateUrl: 'static/partials/shop/cart.html',
                     controller: 'CartCtrl'
                 }).
-                when('/checkout', {
-                    templateUrl: 'static/partials/shop/checkout.html',
-                    controller: 'CheckoutController'
+                when('/checkout/:orderId', {
+                    templateUrl: 'static/partials/shop/summary.html',
+                    controller: 'CheckoutCtrl'
                 }).
                 when('/userpanel',{
                     templateUrl: 'static/partials/userdata/panel.html',

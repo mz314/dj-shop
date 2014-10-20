@@ -11,5 +11,6 @@ url(r'^categories/',rviews.CategoryView.as_view()),
 url(r'^items/(?P<category_id>.+)$',rviews.ItemsView.as_view()),
 url(r'^cart/(?P<item_id>.+)/(?P<quantity>.+)$',cviews.CartView.as_view()),
 url(r'^cart$',cviews.CartView.as_view()),
+url(r'orders',rviews.OrdersView.as_view()),
 url(r'^payment_list$',rviews.PaymentMethodView.as_view()),
 )

@@ -39,7 +39,24 @@ class CartSerializer(serializers.ModelSerializer):
     item=ItemsSerializer()
     class Meta:
         model=CartItem
+        fields=('id','item','quantity',)
 
+    def set_request(self,request):
+        self.request=request
+
+    def save_object(self, obj, **kwargs):
+        obj=CartItem()
+        obj.item_id=self.init_data['item_id']
+        obj.quantity=self.init_data['quantity']
+        obj.user=self.request.user
+        obj.save()
+        return obj
+
+
+
+class OrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Order
 
 
 class PaymentMethodSerializer(serializers.ModelSerializer):

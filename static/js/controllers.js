@@ -39,41 +39,49 @@ djShopControllers.controller('ItemCtrl', ['$scope', '$routeParams', '$http',
     }]);
 
 
-djShopControllers.controller('CartCtrl', ['$scope', '$routeParams', '$http','$sce',
-    function($scope, $routeParams, $http,$sce) {
-        $scope.total_items=0;
+djShopControllers.controller('CheckoutCtrl', ['$scope', '$routeParams', '$http', '$sce',
+    function($scope, $routeParams, $http, $sce) {
+            $scope.order_id=$routeParams.orderId;
+    }
+]);
+
+djShopControllers.controller('CartCtrl', ['$scope', '$routeParams', '$http', '$sce', '$location',
+    function($scope, $routeParams, $http, $sce, $location) {
+        $scope.total_items = 0;
         $scope.loadCart = function() {
             $http.get('api/cart').success(function(data) {
                 $scope.items = data;
-                 $scope.sum();
+                $scope.sum();
             });
         };
 
         $scope.cleanCart = function() {
             $http.get('ajax/cart/clean/').success(function(data) {
                 $scope.loadCart();
-               
+
             });
         };
-        
-      
-      
-      $scope.sum=function() {
-          for(i=0; i<$scope.items.length; i++) {
-              
-              $scope.total_items+=$scope.items[i].item.price*$scope.items[i].quantity;
-              console.log($scope.items[i]);
-          }
-      } 
-      
 
-        $scope.checkout = function(shipment,payment) {
+
+
+        $scope.sum = function() {
+            for (i = 0; i < $scope.items.length; i++) {
+
+                $scope.total_items += $scope.items[i].item.price * $scope.items[i].quantity;
+                console.log($scope.items[i]);
+            }
+        }
+
+
+        $scope.checkout = function(shipment, payment) {
             console.log(payment);
-            
+
             console.log(shipment);
-            
-            $http.get('ajax/cart/checkout/' + shipment.id + '/').success(function(data) {
-                $scope.loadCart();
+
+            $http.get('ajax/cart/checkout/' + shipment.id + '/'+payment.id+'/').success(function(data) {
+                console.log(data);
+               
+                $location.path('/checkout/'+data);
             });
         }
 
@@ -82,16 +90,16 @@ djShopControllers.controller('CartCtrl', ['$scope', '$routeParams', '$http','$sc
                 $scope.shipment = data;
             });
         }
-        
-        $scope.loadPayments=function () {
-            $http.get('/api/payment_list').success(function (data) {
-               $scope.payments=data; 
-               console.log(data);
+
+        $scope.loadPayments = function() {
+            $http.get('/api/payment_list').success(function(data) {
+                $scope.payments = data;
+                console.log(data);
             });
         }
 
         $scope.sprice = 0;
-        $scope.payments=0;
+        $scope.payments = 0;
 
 
         $scope.loadCart();

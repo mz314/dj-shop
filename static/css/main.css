@@ -53,3 +53,17 @@ div.shop-item {
 div.item-name, div.item-price {
     text-align: center;
 }
+
+.cart-sp-label {
+    width: 95%; display: block; float: left;
+}
+
+.remove-item {
+    display: none;
+    float: right;
+}
+
+tr:hover .remove-item {
+    display: block;
+}
+

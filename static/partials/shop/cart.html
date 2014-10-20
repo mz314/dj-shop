@@ -1,4 +1,4 @@
-<table width="100%" border="1">
+<table width="100%" class="table table-striped">
     <thead>
         <tr>
             <th>Product</th>
@@ -7,11 +7,12 @@
             <th>Total</th>
         </tr>
     </thead>
-    
+
     <tbody>
         <tr ng-repeat="i in items">
             <td>
                 {{i.item.name}}
+               
             </td>
             <td>
                 {{i.item.price}}
@@ -21,8 +22,9 @@
             </td>
             <td>
                 {{i.quantity * i.item.price}}
+                 <span class="remove-item glyphicon glyphicon-remove-circle" ></span>
             </td>
-            
+
         </tr>
     </tbody>
     <tfoot>
@@ -36,36 +38,43 @@
         </tr>
         <tr>
             <td colspan="3">Total</td>
-            <td>{{total_items+parseFloat(sprice.price)+parseFloat(payment.price)}}
-              
+            <td>{{total_items + parseFloat(sprice.price) + parseFloat(payment.price)}}
+
             </td>
         </tr>
     </tfoot>
 </table>
-<button type="button" ng-click="cleanCart()">Clear</button>
-
-<ul>
-    <li ng-repeat="s in shipment">
-        {{s.name}}<input type="radio" name="shipment" ng-value="{{s}}" ng-model="$parent.sprice"  />
-    </li>
-</ul>
-
-<div>
-    Shipment cost: {{sprice.price}}
-
+<button type="button" class="btn btn-danger" ng-click="cleanCart()">Clear</button>
+<div style="clear: both">&nbsp;</div>
+<div class="panel panel-default" style="float: left; width: 49.9%">
+    <div class="panel-heading">Select shipment</div>
+    <div class="panel-body">   
+        
+            <div ng-repeat="s in shipment">
+                <span class="cart-sp-label">{{s.name}}</span>
+               
+                
+                <input  type="radio" name="shipment" ng-value="{{s}}" ng-model="$parent.sprice"  />
+            
+        </div>
+    </div>
 </div>
 
-<div>Payment:
-    <ul>
-        <li ng-repeat="p in payments">
-            {{p.name}}<input type="radio" name="payment" ng-value="{{p}}" ng-model="$parent.payment" />
+<div class="panel panel-default"  style="float: right; width: 49.9%">
+    <div class="panel-heading">Select payment:</div>
+    <div class="panel-body">  
+       
+            <div ng-repeat="p in payments">
+                <span class="cart-sp-label">{{p.name}}</span>
+                    <input type="radio" name="payment" ng-value="{{p}}" ng-model="$parent.payment" />
 
-        </li>
-    </ul>
+            </div>
+        
+    </div>
 </div>
+<div style="clear: both">&nbsp;</div>
 
-
-<button ng-click="checkout(sprice, payment)">
+<button class="btn btn-primary" ng-click="checkout(sprice, payment)">
     Checkout  
 </button>
 
