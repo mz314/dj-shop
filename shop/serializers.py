@@ -35,13 +35,14 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'description', 'parent',)
 
 
-
-
-
 class CartSerializer(serializers.ModelSerializer):
     item=ItemsSerializer()
     class Meta:
         model=CartItem
 
 
+
+class PaymentMethodSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=PaymentMethod
 

@@ -18,7 +18,7 @@
 </div>
 <div ng-controller="CartAddController">
     <form class="add-form">
-        <input type="number" id="quantity" ng-model="quantity" />
+        <input type="text" id="quantity" class="quantity-spin" ng-model="quantity" />
         <button type="button" id="add-to-cart" ng-click="addToCart(item, product.pk)">Add to cart</button>
     </form>
 </div>

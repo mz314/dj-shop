@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'shop',
     'userdata',
     'site_options',
+    'payments',
     'south',
     'djangular',
     'rest_framework'

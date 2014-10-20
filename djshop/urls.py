@@ -28,6 +28,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$',cms.views.home,name='home'),
     url(r'^ajax/', include(djshop.ajax_urls)),
+    url(r'^payment/',include('payments.urls'))
     #url(r'^user/',include(userdata.urls))
 )
 

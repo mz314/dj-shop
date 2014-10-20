@@ -31,3 +31,8 @@ class ItemsView(generics.ListAPIView):
         except KeyError:
             return Item.objects.all()
 
+
+
+class PaymentMethodView(generics.ListAPIView):
+    serializer_class = PaymentMethodSerializer
+    queryset = PaymentMethod.objects.all()

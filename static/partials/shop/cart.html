@@ -7,6 +7,7 @@
             <th>Total</th>
         </tr>
     </thead>
+    
     <tbody>
         <tr ng-repeat="i in items">
             <td>
@@ -19,10 +20,27 @@
                 {{i.quantity}}
             </td>
             <td>
-                {{i.quantity*i.item.price}}
+                {{i.quantity * i.item.price}}
             </td>
+            
         </tr>
     </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3">Payment fee</td>
+            <td>{{payment.price}}</td>
+        </tr>
+        <tr>
+            <td colspan="3">Shipment cost</td>
+            <td>{{sprice.price}}</td>
+        </tr>
+        <tr>
+            <td colspan="3">Total</td>
+            <td>{{total_items+parseFloat(sprice.price)+parseFloat(payment.price)}}
+              
+            </td>
+        </tr>
+    </tfoot>
 </table>
 <button type="button" ng-click="cleanCart()">Clear</button>
 
@@ -34,11 +52,20 @@
 
 <div>
     Shipment cost: {{sprice.price}}
-    
+
 </div>
 
-<button ng-click="checkout(sprice)">
+<div>Payment:
+    <ul>
+        <li ng-repeat="p in payments">
+            {{p.name}}<input type="radio" name="payment" ng-value="{{p}}" ng-model="$parent.payment" />
+
+        </li>
+    </ul>
+</div>
+
+
+<button ng-click="checkout(sprice, payment)">
     Checkout  
 </button>
-  
 
