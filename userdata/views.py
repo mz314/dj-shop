@@ -20,7 +20,10 @@ def logout_user(request):
 
 @csrf_exempt
 def login_user(request):
-    data=json.loads(request.body)
+    try:
+        data=json.loads(request.body)
+    except ValueError:
+        return HttpResponse('3')
     un=data.get('username')
     pw=data.get('password')
     user = authenticate(username=un, password=pw)
@@ -33,6 +36,19 @@ def login_user(request):
             return HttpResponse('1')
     else:
         return HttpResponse('2')
+
+
+
+def login_user_http(request):
+    un=request.GET.get('username')
+    pw=request.GET.get('password')
+    user = authenticate(username=un, password=pw)
+    if user is not None:
+        if user.is_active:
+            login(request, user)
+            #request.user=user
+    return redirect('/')
+
 
 def create_user(request):
 

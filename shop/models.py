@@ -110,6 +110,10 @@ class OrderItem(ItemAbs):
     order=models.ForeignKey(Order)
 
 
+class PaymentMethod(Priced):
+    name=models.CharField(max_length=128,verbose_name=u"Payment name")
+    gw_url=models.CharField(max_length=256,verbose_name=u"Payment GW url")
+
 
 
 

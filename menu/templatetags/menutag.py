@@ -26,6 +26,7 @@ class MenuNode(template.Node):
                  i.href=i.link
              elif i.type=='user':
                  i.href=i.link
+                 print request.user.is_authenticated()
                  if request.user.is_authenticated():
                     i.label=u"Logged as "+request.user.username
                     i.link="userpanel"

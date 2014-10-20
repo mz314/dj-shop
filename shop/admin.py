@@ -27,6 +27,9 @@ class ShipmentAdmin(admin.ModelAdmin):
     list_display = ('name','enabled')
 
 
+class PaymentAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+
 class OrderItemInline(admin.StackedInline):
     model=OrderItem
 
@@ -40,3 +43,4 @@ admin.site.register(Item,ItemAdmin)
 admin.site.register(Tax,TaxAdmin)
 admin.site.register(Currency,CurrencyAdmin)
 admin.site.register(ShipmentMethod,ShipmentAdmin)
+admin.site.register(PaymentMethod,PaymentAdmin)

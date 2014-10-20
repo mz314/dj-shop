@@ -61,7 +61,7 @@ djShopControllers.controller('CartCtrl', ['$scope', '$routeParams', '$http',
             });
         }
         
-        $scope.loadPayments=function () {
+        $scope.loadShipments=function () {
              $http.get('ajax/cart/shipment/').success(function(data) {
                 $scope.shipment=data;
             });
@@ -71,7 +71,7 @@ djShopControllers.controller('CartCtrl', ['$scope', '$routeParams', '$http',
         
 
         $scope.loadCart();
-        $scope.loadPayments();
+        $scope.loadShipments();
 
       
         
@@ -101,17 +101,36 @@ djShopControllers.controller('CleanCartController', ['$scope', '$routeParams', '
 djShopControllers.controller('UserCtrl', ['$scope', '$routeParams', '$http', '$sce',
     function($scope, $routeParams, $http,$sce,$interpolateProvider) {
         
-    
+       
+        
         $scope.login=function() {
-            console.log($scope.login_form);
+            //console.log($scope.login_form);
             $http.post('/user/login',$scope.login_form).success(function (data) {
-                
+                if(data==='0') {
+                    $scope.login_message="Cool";
+                } else {
+                    $scope.login_message="Wrong credentials";
+                }
+                //console.log(data);
             });
         };
         
-       
+       $scope.register=function () {
+           $http.post('/api/user/get',$scope.reg_form).success(function (data) {
+              console.log(data); 
+           });
+       };
         
-       // $scope.loginForm();
+        
+        $scope.getCountries=function () {
+          $http.get('/api/user/countries').success(function (data) {
+              $scope.countries=data;
+              console.log(data);
+          });
+        };
+       
+        $scope.getCountries();
+        // $scope.loginForm();
         
         $scope.submit = function() {
           //  console.log($scope.userdata);

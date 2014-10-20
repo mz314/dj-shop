@@ -11,9 +11,13 @@ class Country(models.Model):
 
 class UserData(models.Model):
     user=models.ForeignKey(User)
-
     country=models.ForeignKey(Country)
     city=models.CharField(max_length=128)
     zip=models.CharField(max_length=16)
-    address=models.TextField()
+    street=models.CharField(max_length=128)
+    street_number=models.CharField(max_length=128)
+
+    def __unicode__(self):
+        return self.user.username+" "+self.user.first_name+" "+self.user.last_name+" "+self.user.email
+
 

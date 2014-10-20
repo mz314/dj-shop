@@ -20,7 +20,7 @@ class UserForm(NgModelFormMixin,NgFormValidationMixin,forms.ModelForm):
 class UserDataFormBasic(forms.ModelForm):
     class Meta:
         model=UserData
-        fields=['country','city','zip','address']
+        fields=['country','city','zip','street','street_number']
 
 
 class LoginForm(NgModelFormMixin,NgFormValidationMixin,forms.Form):

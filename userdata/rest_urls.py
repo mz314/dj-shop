@@ -11,6 +11,7 @@ urlpatterns = patterns('',
     url(r'^create/$',create_user),
     url(r'get/check',LoginCheckView.as_view()),
     url(r'get',UserDataView.as_view()),
+    url(r'countries',CountriesView.as_view()),
 )
 
 
