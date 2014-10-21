@@ -60,10 +60,22 @@ div.item-name, div.item-price {
 
 .remove-item {
     display: none;
+    position: absolute;
+    cursor: pointer;
     float: right;
+}
+
+.rm-container {
+    position: relative;
+    width: 11px;
+    float: right;
+    margin: 0;
+    padding: 0;
 }
 
 tr:hover .remove-item {
     display: block;
+    
+
 }
 

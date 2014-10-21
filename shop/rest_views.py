@@ -44,6 +44,17 @@ class OrdersView(generics.ListAPIView):
     def get_queryset(self):
         return Order.objects.filter(user=self.request.user)
 
+    def get(self, request, *args, **kwargs):
+
+        try:
+            order = Order.objects.get(user=request.user,pk=kwargs['order_id'])
+            serializer = OrderSerializer(order)
+        except KeyError:
+            order = Order.objects.filter(user=request.user)
+            serializer = OrderSerializer(order,many=True)
+        return Response(serializer.data)
+
+
     @csrf_exempt
     def post(self,request, *args, **kwargs):
         pass

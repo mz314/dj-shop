@@ -1,2 +1,41 @@
-summary
-{{order_id}}
+<h1>Summary for order {{order.id}}</h1>
+<table  width="100%" class="table table-striped">
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="i in order.orderitem_set">
+            <td>
+                {{i.item.name}}
+            </td>
+            <td>
+                {{i.item.price}}
+            </td>
+            <td>
+                {{i.quantity}}
+            </td>
+            <td>
+                {{i.quantity * i.item.price}}
+            </td>
+
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3">Shipment {{order.shipment.name}}</td>
+            <td>{{order.shipment.price}}</td>
+        </tr>
+        <tr>
+            <td colspan="3">Payment {{order.payment.name}}</td>
+            <td>{{order.payment.price}}</td>
+        </tr>
+    </tfoot>    
+</table>
+<div class="payment" ng-include="gw_template.url">
+    
+</div>

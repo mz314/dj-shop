@@ -53,13 +53,31 @@ class CartSerializer(serializers.ModelSerializer):
         return obj
 
 
-
-class OrderSerializer(serializers.ModelSerializer):
+class OrderItemSerializer(serializers.ModelSerializer):
+    item=ItemsSerializer()
     class Meta:
-        model=Order
+        model=OrderItem
+        fields = ('id','item','quantity')
 
+
+class ShipmentMethodSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=ShipmentMethod
 
 class PaymentMethodSerializer(serializers.ModelSerializer):
     class Meta:
         model=PaymentMethod
+
+
+class OrderSerializer(serializers.ModelSerializer):
+    orderitem_set=OrderItemSerializer(many=True)
+    payment=PaymentMethodSerializer()
+    shipment=ShipmentMethodSerializer()
+    class Meta:
+        model=Order
+        fields=('id','datetime','user','shipment','payment','orderitem_set')
+
+
+
+
 

@@ -1,3 +1,6 @@
+<div ng-if="items">
+
+
 <table width="100%" class="table table-striped">
     <thead>
         <tr>
@@ -22,7 +25,9 @@
             </td>
             <td>
                 {{i.quantity * i.item.price}}
-                 <span class="remove-item glyphicon glyphicon-remove-circle" ></span>
+                <div class="rm-container">
+                    <span class="remove-item glyphicon glyphicon-remove-circle" ></span>
+                </div> 
             </td>
 
         </tr>
@@ -78,3 +83,7 @@
     Checkout  
 </button>
 
+</div>
+<div ng-if="items.length===0">
+ Your cart is empty.
+</div>

@@ -69,6 +69,10 @@ class ShipmentMethod(Priced):
         return self.name
 
 
+class PaymentMethod(Priced):
+    name=models.CharField(max_length=128,verbose_name=u"Payment name")
+    config=models.CharField(max_length=256,verbose_name=u"Config file")
+
 
 class ItemAbs(models.Model):
     class Meta:
@@ -95,24 +99,29 @@ class CartItem(ItemAbs):
         else:
             super(CartItem,self).save()
 
+
+
 class Order(models.Model):
     datetime=models.DateTimeField(auto_now=True)
     user=models.ForeignKey(User,null=False)
     shipment=models.ForeignKey(ShipmentMethod)
+    payment=models.ForeignKey(PaymentMethod)
 
     def __unicode__(self):
         return self.pk
 
 
 
+class OrderStatus(models.Model):
+    datetime=models.DateTimeField(auto_now=True)
+    order=models.ForeignKey(Order)
+
 
 class OrderItem(ItemAbs):
     order=models.ForeignKey(Order)
 
 
-class PaymentMethod(Priced):
-    name=models.CharField(max_length=128,verbose_name=u"Payment name")
-    gw_url=models.CharField(max_length=256,verbose_name=u"Payment GW url")
+
 
 
 

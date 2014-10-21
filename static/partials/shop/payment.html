@@ -1,0 +1,15 @@
+<h2>{{gw_data.config.title}}</h2>
+<div ng-if="gw_errors">
+    <div ng-repeat="e in gw_errors">{{e}}</div>
+    
+</div>
+<form name="{{gw_data.config.form_name}}">
+    <ul>
+        <li ng-repeat="f in gw_data.config.fields">
+           
+            {{f.label}}<input type="{{f.type}}" name="{{f.name}}" ng-model="f.value" />
+        </li>
+    </ul>
+    <button type="button" ng-click="processPayment(gw_data.config.fields)">{{gw_data.config.pay_title}}</button>
+</form>
+

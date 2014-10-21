@@ -39,9 +39,43 @@ djShopControllers.controller('ItemCtrl', ['$scope', '$routeParams', '$http',
     }]);
 
 
-djShopControllers.controller('CheckoutCtrl', ['$scope', '$routeParams', '$http', '$sce',
-    function($scope, $routeParams, $http, $sce) {
-            $scope.order_id=$routeParams.orderId;
+djShopControllers.controller('CheckoutCtrl', ['$scope', '$routeParams', '$http', '$sce','$cookies', '$location',
+    function($scope, $routeParams, $http, $sce,$cookies,$location) {
+        $scope.gw_template =
+                {name: 'payment.html', url: '/static/partials/shop/payment.html'}
+        ;
+
+        $scope.loadOrder = function() {
+            $http.get('/api/orders/' + $routeParams.orderId).success(function(data) {
+                $scope.order = data;
+                $scope.loadPayment();
+            });
+
+        };
+
+        $scope.processPayment = function(fields) {
+            $http.defaults.headers.post['X-CSRFToken'] = $cookies.csrftoken;
+            $http.post($scope.gw_data.config.action+'/'+$scope.order.id,fields).success(function (data) {
+                $scope.gw_errors=null;
+                if(data.errors.length===0) {
+                    alert('Cool');
+                    //$location.path('/checkout/' + $scope.order.id);
+                     //zrobić chowanie ngifem
+               } else {
+                   $scope.gw_errors=data.errors;
+               }
+            });
+            
+        };
+
+        $scope.loadPayment = function() {
+            $http.get('/api/payment/gateway/' + $scope.order.payment.id).success(function(data) {
+                $scope.gw_data = data;
+            });
+        };
+
+
+        $scope.loadOrder();
     }
 ]);
 
@@ -78,10 +112,10 @@ djShopControllers.controller('CartCtrl', ['$scope', '$routeParams', '$http', '$s
 
             console.log(shipment);
 
-            $http.get('ajax/cart/checkout/' + shipment.id + '/'+payment.id+'/').success(function(data) {
+            $http.get('ajax/cart/checkout/' + shipment.id + '/' + payment.id + '/').success(function(data) {
                 console.log(data);
-               
-                $location.path('/checkout/'+data);
+
+                $location.path('/checkout/' + data);
             });
         }
 

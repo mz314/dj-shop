@@ -1,0 +1,24 @@
+{
+    "fields": [
+        {
+            "type":"text",
+            "label":"Card number",
+            "name":"card"
+        },
+        {
+            "type":"text",
+            "label":"CVV",
+            "name":"cvv"
+        },
+        {
+           "type":"text",
+           "label":"Exp. date",
+           "name":"expdate"
+        }
+    ],
+    "action": "/api/payment/creditcard",
+    "method":"ajax",
+    "form_name":"cctest",
+    "title":"Credit card test",
+    "pay_title":"Pay"
+}
