@@ -95,12 +95,15 @@ class CartCheckout(CartView):
 
 
     def get(self,request,*args,**kwargs):
-
+        status=OrderStatus()
         order=Order()
         order.user=request.user
         order.shipment=ShipmentMethod.objects.get(pk=kwargs['shipment_id'])
         order.payment=PaymentMethod.objects.get(pk=kwargs['payment_id'])
         order.save()
+        status.status=OrderStatus.STATUS_PENDING
+        status.order=order
+        status.save()
 
         cart_items=CartItem.objects.filter(user=request.user)
 

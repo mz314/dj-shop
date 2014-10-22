@@ -1,4 +1,8 @@
 {
-    "fields":[]
-    
+    "fields":[],
+    "action": "/api/payment/dummy",
+     "method":"ajax",
+    "form_name":"dummy",
+    "title":"Dummy payment",
+    "pay_title":"Pay, don't be a dummy"
 }

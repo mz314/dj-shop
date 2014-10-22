@@ -1,1 +1,23 @@
-<a href="/user/logout">Logout</a>
+<div align="right">
+    <a  href="/user/logout">
+        <button type="button" class="btn btn-default">
+            Logout
+        </button>
+    </a>
+</div>
+<section>
+    <ul ng-init="tab = 1"  class="nav nav-tabs">
+        <li ng-class="{active:tab === 1}">
+            <a href ng-click="tab = 1">User data</a>	
+        </li>
+        <li ng-class="{active:tab === 2}">
+            <a href ng-click="tab = 2">Orders</a>
+        </li>
+       
+    </ul>	
+
+    <p ng-show="tab === 1" class="tab-pane active">User data goes here</p>
+    <p ng-show="tab === 2" class="tab-pane">Order list goes here</p>
+
+</section>	
+

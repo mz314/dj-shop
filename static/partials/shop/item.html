@@ -1,24 +1,54 @@
-<h2>
-    Product details
-</h2>
 <h1>
-    {{product.fields.name}}
+    {{product.name}}
 </h1>
-<div>
-    {{product.fields.price}}
+<div class="product-left">
+    <div>
+        <div style="clear: both; float: none">
+            <div class="main-image-container">
+                <img src="/media/{{main_image.file}}" class="main-image" />
+            </div>
+            <ul class="shop-images">
+                <li  ng-repeat="i in product.images" ng-click="switchImage(i)">
+                    <img src="/media/{{i.file}}"  />
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="cart-area">
+        <div class="price">
+            {{product.tax_price | number:2}} {{product.currency.symbol}} (incl. {{product.tax.amount | number:2 }}% {{product.tax.name}})
+        </div>
+        <div ng-controller="CartAddController">
+            <form class="add-form">
+                <button type="button" ng-click="less()" class="btn btn-default">-</button>
+                <input class="form-control quantity-spin" type="text" id="quantity" ng-model="quantity" />
+                <button type="button" ng-click="more()" class="btn btn-default">+</button>
+                <button type="button" id="add-to-cart" ng-click="addToCart(product)" class="btn btn-success">Add to cart</button>
+            </form>
+            <div id="added-message">Added to cart</div>
+        </div>
+    </div>
 </div>
-<div ng-controller="ItemImagesCtrl">
-    <div style="clear: both; float: none">
-        <ul class="shop-images">
-            <li  ng-repeat="i in images">
-                <img src="/media/{{i.fields.file}}"  />
+<div class="product-right">
+    <div class="product-details">
+        <h2>Product data</h2>
+        <ul>
+            <li ng-if="product.weight">
+                Weight: {{product.weight}} Kg
+            </li>
+            <li ng-if="product.depth">
+                Width: {{product.width}} M
+            </li>
+            <li ng-if="product.depth">
+                Height: {{product.height}} M 
+            </li>
+            <li ng-if="product.depth">
+                Depth: {{product.depth}} M
             </li>
         </ul>
     </div>
-</div>
-<div ng-controller="CartAddController">
-    <form class="add-form">
-        <input type="text" id="quantity" class="quantity-spin" ng-model="quantity" />
-        <button type="button" id="add-to-cart" ng-click="addToCart(item, product.pk)">Add to cart</button>
-    </form>
+    <h2>Description</h2>
+    <div class="product-description">
+        {{product.descripion}}
+    </div>
 </div>

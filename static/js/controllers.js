@@ -32,10 +32,14 @@ djShopControllers.controller('ShopCtrl', ['$scope', '$routeParams', '$http',
 
 djShopControllers.controller('ItemCtrl', ['$scope', '$routeParams', '$http',
     function($scope, $routeParams, $http) {
-        $http.get('ajax/item/' + $routeParams.itemId).success(function(data) {
+        $http.get('api/item/' + $routeParams.itemId).success(function(data) {
             $scope.product = data[0];
+            $scope.switchImage($scope.product.image)
         });
-
+          $scope.switchImage=function(image) {
+            $scope.main_image=image;
+        }
+    
     }]);
 
 
@@ -58,7 +62,8 @@ djShopControllers.controller('CheckoutCtrl', ['$scope', '$routeParams', '$http',
             $http.post($scope.gw_data.config.action+'/'+$scope.order.id,fields).success(function (data) {
                 $scope.gw_errors=null;
                 if(data.errors.length===0) {
-                    alert('Cool');
+                    $scope.order.status=1;
+                     //alert('Cool');
                     //$location.path('/checkout/' + $scope.order.id);
                      //zrobić chowanie ngifem
                } else {
@@ -82,6 +87,7 @@ djShopControllers.controller('CheckoutCtrl', ['$scope', '$routeParams', '$http',
 djShopControllers.controller('CartCtrl', ['$scope', '$routeParams', '$http', '$sce', '$location',
     function($scope, $routeParams, $http, $sce, $location) {
         $scope.total_items = 0;
+        $scope.total_items_vat=0;
         $scope.loadCart = function() {
             $http.get('api/cart').success(function(data) {
                 $scope.items = data;
@@ -102,6 +108,7 @@ djShopControllers.controller('CartCtrl', ['$scope', '$routeParams', '$http', '$s
             for (i = 0; i < $scope.items.length; i++) {
 
                 $scope.total_items += $scope.items[i].item.price * $scope.items[i].quantity;
+                $scope.total_items_vat += $scope.items[i].item.tax_price * $scope.items[i].quantity;
                 console.log($scope.items[i]);
             }
         }
@@ -150,13 +157,25 @@ djShopControllers.controller('CartCtrl', ['$scope', '$routeParams', '$http', '$s
 
 djShopControllers.controller('CartAddController', ['$scope', '$routeParams', '$http', '$cookies',
     function($scope, $routeParams, $http, $cookies) {
-        $scope.addToCart = function(item, id) {
+        $scope.quantity=1;
+        $scope.addToCart = function(item) {
             var q = $scope.quantity;
 
             $http.defaults.headers.post['X-CSRFToken'] = $cookies.csrftoken;
-            $http.post('api/cart/' + id + '/' + q).success(function(data) {
+            $http.post('api/cart/' + item.id + '/' + q).success(function(data) {
             });
         };
+        $scope.more=function() {
+            $scope.quantity++;
+        };
+        
+        
+        $scope.less=function() {
+          if($scope.quantity>1) {
+              $scope.quantity--;
+          }  
+        };
+        
     }]);
 
 
@@ -210,12 +229,17 @@ djShopControllers.controller('UserCtrl', ['$scope', '$routeParams', '$http', '$s
 
 djShopControllers.controller('ItemImagesCtrl', ['$scope', '$routeParams', '$http', '$sce',
     function($scope, $routeParams, $http) {
-
+         
+        $scope.main_image=null;
+            
         //  console.log($scope.userdata);
-        $http.get('ajax/item/images/' + $routeParams.itemId).success(function(data) {
-            $scope.images = data;
-            console.log(data);
-        });
+//        $http.get('ajax/item/images/' + $routeParams.itemId).success(function(data) {
+//            $scope.images = data;
+//            $scope.main_image=data[0];
+//            console.log(data);
+//        });
+        
+      
 
     }]);
 
@@ -223,6 +247,14 @@ djShopControllers.controller('ItemImagesCtrl', ['$scope', '$routeParams', '$http
 djShopControllers.controller('UserPanelController', ['$scope', '$routeParams', '$http', '$sce',
     function($scope, $routeParams, $http) {
 
+
+
+    }]);
+
+
+djShopControllers.controller('CatTreeCtrl', ['$scope', '$routeParams', '$http', '$sce',
+    function($scope, $routeParams, $http) {
+        $scope.test='test';
 
 
     }]);

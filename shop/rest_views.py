@@ -20,7 +20,6 @@ class CategoryView(generics.ListAPIView):
 
 
 
-
 class ItemsView(generics.ListAPIView):
     serializer_class = ItemsSerializer
 
@@ -30,6 +29,13 @@ class ItemsView(generics.ListAPIView):
             return Item.objects.filter(categories__in=[category_id,])
         except KeyError:
             return Item.objects.all()
+
+
+class ItemView(ItemsView):
+    def get(self, request, *args, **kwargs):
+        item=Item.objects.get(pk=int(kwargs['item_id']))
+        serializer=ItemsSerializer(item)
+        return Response(serializer.data)
 
 
 

@@ -16,6 +16,7 @@
     <script src="{% static "bower_components/jquery/dist/jquery.min.js" %}"></script>
     
     <script src="{% static "js/app.js" %}"></script>
+
     
     <script src="{% static "js/controllers.js" %}"></script>
     
@@ -25,15 +26,24 @@
 
     <title>{{shop_name}}</title>
 </head>
-<body>
+<body ng-app="djshop" >
+
 <div class="menu-header">
 {% menutag "main" %}
 </div>
-<div class="content"  >
+ <div class="left-categories"  >
+
+                
+</div>
+
+<div class="content" >
 {% block content %}
-<div ng-view ng-app="djshop">
+
+
+<div ng-view >
 
 </div>
+
 {% endblock %}
 </div>
 {% block footer %}
@@ -41,5 +51,6 @@
  {{footer_text}}
 </div>
 {% endblock %}
+
         </body>
 </html>

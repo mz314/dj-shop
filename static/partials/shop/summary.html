@@ -36,6 +36,9 @@
         </tr>
     </tfoot>    
 </table>
-<div class="payment" ng-include="gw_template.url">
+<div class="payment" ng-include="gw_template.url" ng-if="order.status==0">
     
+</div>
+<div class="payment" ng-if="order.status!=0">
+    Payment complete.
 </div>

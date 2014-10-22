@@ -33,8 +33,11 @@ class PaymentAdmin(admin.ModelAdmin):
 class OrderItemInline(admin.StackedInline):
     model=OrderItem
 
+class OrderStatusInline(admin.StackedInline):
+    model=OrderStatus
+
 class OrderAdmin(admin.ModelAdmin):
-    inlines = [OrderItemInline]
+    inlines = [OrderItemInline,OrderStatusInline,]
     list_display = ('pk','user','datetime')
 
 admin.site.register(Order,OrderAdmin)

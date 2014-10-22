@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import Q
+from django.db.models import Max
 import json
 
 
@@ -27,6 +28,14 @@ class Priced(models.Model):
     tax=models.ForeignKey(Tax,null=True,blank=True)
     currency=models.ForeignKey(Currency,null=True,blank=True)
 
+    @property
+    def tax_price(self):
+        if self.tax:
+            price=self.price*(self.tax.amount/100)+self.price
+            return price
+        else:
+            return self.price
+
 class Category(models.Model):
     name=models.CharField(max_length=128)
     description=models.TextField(blank=True,null=True)
@@ -43,9 +52,13 @@ class Category(models.Model):
 class Item(Priced):
     name=models.CharField(max_length=128)
     descripion=models.TextField(blank=True,null=True)
-
+    weight=models.DecimalField(verbose_name=u"Weight (kg)",max_digits=10,decimal_places=8,null=True,blank=True,default=None)
+    width=models.DecimalField(verbose_name=u"Width (m)",max_digits=10,decimal_places=8,null=True,blank=True,default=None)
+    height=models.DecimalField(verbose_name=u"Height (m)",max_digits=10,decimal_places=8,null=True,blank=True,default=None)
+    depth=models.DecimalField(verbose_name=u"Depth (m)",max_digits=10,decimal_places=8,null=True,blank=True,default=None)
     categories=models.ManyToManyField(Category)
     #images=models.ManyToManyField(ItemImage,null=True,blank=True)
+
 
     def __unicode__(self):
         return self.name
@@ -113,12 +126,42 @@ class Order(models.Model):
 
 
 class OrderStatus(models.Model):
+    STATUS_PENDING=0
+    STATUS_PAYED=1
+    STATUS_SENT=2
+    STATUS_CHOICES=(
+        (STATUS_PENDING,u'Awaiting payment'),
+        (STATUS_PAYED,u'Payed'),
+        (STATUS_SENT,u'Sent')
+    )
     datetime=models.DateTimeField(auto_now=True)
     order=models.ForeignKey(Order)
+    status=models.CharField(max_length=64,choices=STATUS_CHOICES)
+
+    @staticmethod
+    def get_newest(order):
+        objects=OrderStatus.objects.filter(order=order).order_by('-datetime')
+        #print objects
+        try:
+            #print 'a'
+            return objects[0]
+        except IndexError:
+            #print 'b'
+            return OrderStatus(status=OrderStatus.STATUS_PENDING)
+
+
+
+
+class OrderManager(models.Manager):
+    def get_queryset(self):
+        return super(Order,self).get_queryset()
 
 
 class OrderItem(ItemAbs):
     order=models.ForeignKey(Order)
+
+
+
 
 
 

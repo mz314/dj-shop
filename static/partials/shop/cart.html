@@ -5,6 +5,7 @@
     <thead>
         <tr>
             <th>Product</th>
+            <th>Net price</th>
             <th>Price</th>
             <th>Quantity</th>
             <th>Total</th>
@@ -18,13 +19,16 @@
                
             </td>
             <td>
-                {{i.item.price}}
+                {{i.item.price|number:2}} {{i.item.currency.symbol}}
+            </td>
+            <td>
+                {{i.item.tax_price|number:2}} {{i.item.currency.symbol}}
             </td>
             <td>
                 {{i.quantity}}
             </td>
             <td>
-                {{i.quantity * i.item.price}}
+                {{i.quantity * i.item.tax_price|number:2}} {{i.item.currency.symbol}}
                 <div class="rm-container">
                     <span class="remove-item glyphicon glyphicon-remove-circle" ></span>
                 </div> 
@@ -34,16 +38,18 @@
     </tbody>
     <tfoot>
         <tr>
-            <td colspan="3">Payment fee</td>
-            <td>{{payment.price}}</td>
+            <td colspan="4">Payment fee</td>
+            <td>{{payment.price|number:2}}</td>
         </tr>
         <tr>
-            <td colspan="3">Shipment cost</td>
-            <td>{{sprice.price}}</td>
+            <td colspan="4">Shipment cost</td>
+            <td>{{sprice.price|number:2}}</td>
         </tr>
         <tr>
-            <td colspan="3">Total</td>
-            <td>{{total_items + parseFloat(sprice.price) + parseFloat(payment.price)}}
+            <td >Total</td>
+            <td>{{(total_items + parseFloat(sprice.price) + parseFloat(payment.price))}}</td>
+            <td colspan="2">&nbsp;</td>
+            <td>{{(total_items_vat + parseFloat(sprice.price) + parseFloat(payment.price))}}
 
             </td>
         </tr>

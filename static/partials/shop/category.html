@@ -15,7 +15,7 @@ Items
 <div class="shop-items">
     <div ng-repeat="i in items" class="shop-item">
                 <a href="#/details/{{i.id}}/">
-                <img src="/media/{{i.image}}" width="64" class="item-image" />
+                <img src="/media/{{i.image.file}}" width="64" class="item-image" />
                 <div class="item-name">{{i.name}}</div>
                 </a>
                 <div class="item-price">{{i.price}}</div>
