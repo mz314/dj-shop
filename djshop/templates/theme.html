@@ -20,6 +20,7 @@
     
     <script src="{% static "js/controllers.js" %}"></script>
     
+    <script src="{% static "js/ctree.js" %}"></script>
     <script src="{% static "js/common.js" %}"></script>
 
 
@@ -31,8 +32,11 @@
 <div class="menu-header">
 {% menutag "main" %}
 </div>
- <div class="left-categories"  >
 
+                <div class="left-categories"  ng-controller="CatTreeCtrl" ng-include="ctree_template.url">
+                {% verbatim %}
+               
+                {% endverbatim %}
                 
 </div>
 
@@ -46,10 +50,11 @@
 
 {% endblock %}
 </div>
+
 {% block footer %}
 <div class="footer">
  {{footer_text}}
-</div>
+</div> 
 {% endblock %}
 
         </body>

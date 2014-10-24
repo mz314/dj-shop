@@ -13,11 +13,39 @@
         <li ng-class="{active:tab === 2}">
             <a href ng-click="tab = 2">Orders</a>
         </li>
-       
+
     </ul>	
 
-    <p ng-show="tab === 1" class="tab-pane active">User data goes here</p>
-    <p ng-show="tab === 2" class="tab-pane">Order list goes here</p>
+    <div ng-show="tab === 1" class="tab-pane active" ng-controller="UserCtrl">
+        <div ng-include="regform.url" ng-init="btn_text='Save'">
+            
+        </div>
+    </div>
+    <div ng-show="tab === 2" class="tab-pane" ng-init="loadOrders()">
+
+        <table width="100%" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Price</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="o in orders" >
+                    <td >{{o.id}}</td>
+                    <td>{{o.datetime}}</td>
+                    <td>{{o.text_status}}</td>
+                    <td>{{o.total_price}}</td>
+                    <td><button type="button" ng-click="toCheckout(o.id)" class="btn btn-default" >Details</button></td>
+                </tr>
+            </tbody>
+        </table>
+
+
+    </div>
 
 </section>	
 

@@ -119,25 +119,23 @@ djShopControllers.controller('CartCtrl', ['$scope', '$routeParams', '$http', '$s
 
             console.log(shipment);
 
-            $http.get('ajax/cart/checkout/' + shipment.id + '/' + payment.id + '/').success(function(data) {
-                console.log(data);
-
-                $location.path('/checkout/' + data);
+            $http.get('/api/checkout/' + shipment.id + '/' + payment.id ).success(function(data) {
+                $location.path('/checkout/' + data.id);
             });
-        }
+        };
 
         $scope.loadShipments = function() {
             $http.get('ajax/cart/shipment/').success(function(data) {
                 $scope.shipment = data;
             });
-        }
+        };
 
         $scope.loadPayments = function() {
             $http.get('/api/payment_list').success(function(data) {
                 $scope.payments = data;
                 console.log(data);
             });
-        }
+        };
 
         $scope.sprice = 0;
         $scope.payments = 0;
@@ -186,7 +184,11 @@ djShopControllers.controller('CleanCartController', ['$scope', '$routeParams', '
 
 djShopControllers.controller('UserCtrl', ['$scope', '$routeParams', '$http', '$sce',
     function($scope, $routeParams, $http, $sce, $interpolateProvider) {
-
+        
+        
+        $scope.regform =
+                {name: 'regform.html', url: '/static/partials/userdata/regform.html'}
+        ;
 
 
         $scope.login = function() {
@@ -244,17 +246,43 @@ djShopControllers.controller('ItemImagesCtrl', ['$scope', '$routeParams', '$http
     }]);
 
 
-djShopControllers.controller('UserPanelController', ['$scope', '$routeParams', '$http', '$sce',
-    function($scope, $routeParams, $http) {
+djShopControllers.controller('UserPanelController', ['$scope', '$routeParams', '$http', '$sce', '$location',
+    function($scope, $routeParams, $http,$sce,$location) {
 
-
+        $scope.loadOrders=function () {
+            $http.get('/api/orders').success(function (data) {
+                $scope.orders=data;
+            });
+        };
+        
+        
+        $scope.toCheckout=function (id) {
+             $location.path('/checkout/' + id);  
+        };
+        
 
     }]);
 
 
 djShopControllers.controller('CatTreeCtrl', ['$scope', '$routeParams', '$http', '$sce',
     function($scope, $routeParams, $http) {
-        $scope.test='test';
-
-
+        
+        $scope.ctree_template = {
+                    name: 'ctree',
+                    url: '/static/partials/shop/ctree.html'
+                };
+                
+        $scope.loadCat=function (parent_id) {
+            if (parent_id==0) {
+                parent_id='';
+            } 
+            $http.get('/api/categories/'+parent_id).success(function (data) {
+                console.log(data);
+            });
+        }   ;   
+        
+        
+        
+        
+        
     }]);

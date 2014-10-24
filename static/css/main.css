@@ -30,18 +30,20 @@ div.footer {
     height: 80px;
     background-color: black;
     color: white;
-    position: absolute;
-    bottom: 0px;
+/*    position: absolute;
+    bottom: 0px;*/
     padding: 10px;
+    clear: both;
 }
 
 div.menu-header {
     background-color: #000000;
 }
 
-html {
-    position: relative;
-    height: 100%;
+html, body {
+   width: 100%;
+  
+  
 
 }
 
@@ -118,19 +120,23 @@ h1 {
     background-color: #000000;
     display: block;
     float: left;
-    height: 94%;
-    left: 0px;
-    position: absolute;
-    top: 52px;
+    height: 100%;
+/*    left: 0px;
+    position: absolute;*/
+/*    top: 52px;*/
     width: 210px;
     padding: 10px;
     color: white;
+    margin: 0px;
+    min-height: 1000px;
+    
 }
 
 .content {
-    position: absolute;
-    left: 220px;
-    width: 86%;
+/*    position: absolute;
+    left: 220px;*/
+float: left;    
+width: 86%;
 }
 
 .price {
@@ -158,4 +164,8 @@ h1 {
 
 .product-details {
     margin-bottom: 25px;
+}
+
+.navbar {
+    margin-bottom: 0;
 }

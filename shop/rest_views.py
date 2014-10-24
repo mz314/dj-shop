@@ -18,6 +18,9 @@ class CategoryView(generics.ListAPIView):
             return Category.objects.filter(parent_id=None)
 
 
+class CategoryRecursiveView(CategoryView):
+        serializer_class = CategorySerializerRecursive
+
 
 
 class ItemsView(generics.ListAPIView):

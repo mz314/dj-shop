@@ -49,6 +49,25 @@ class CategorySerializer(serializers.ModelSerializer):
         model = Category
         fields = ('id', 'name', 'description', 'parent',)
 
+class CategorySerializerRecursive(CategorySerializer):
+
+    def to_native(self, obj):
+        native=super(CategorySerializerRecursive,self).to_native(obj)
+        children=Category.objects.filter(parent_id=obj.pk)
+        #cs=CategorySerializerRecursive(children)
+        print len(children)
+        sc=[]
+        if len(children)>0:
+            for c in children:
+                n=self.to_native(c)
+                sc.append(n)
+        #print self.to_native(CategorySerializerRecursive(children))
+        native['children']=sc #list(children)
+        return native
+
+
+
+
 
 class CartSerializer(serializers.ModelSerializer):
     item=ItemsSerializer()
@@ -91,11 +110,13 @@ class OrderSerializer(serializers.ModelSerializer):
     #status=serializers.CharField(read_only=True)
     class Meta:
         model=Order
-        fields=('id','datetime','user','shipment','payment','orderitem_set',)
+        fields=('id','datetime','user','shipment','payment','net_price','total_price','orderitem_set',)
 
     def to_native(self, obj):
         native=super(OrderSerializer,self).to_native(obj)
-        native['status']=OrderStatus.get_newest(obj).status
+        stat=OrderStatus.get_newest(obj)
+        native['status']=stat.status
+        native['text_status']=stat.textual()
         return native
 
 

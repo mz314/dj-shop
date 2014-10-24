@@ -33,6 +33,64 @@ class CartView(generics.ListAPIView):
         return Response(serializer.data)
 
 
+class CartCheckoutAjax(CartView):
+
+
+    def get(self,request,*args,**kwargs):
+        status=OrderStatus()
+        order=Order()
+        order.user=request.user
+        order.shipment=ShipmentMethod.objects.get(pk=kwargs['shipment_id'])
+        order.payment=PaymentMethod.objects.get(pk=kwargs['payment_id'])
+        order.save()
+        status.status=OrderStatus.STATUS_PENDING
+        status.order=order
+        status.save()
+
+        cart_items=CartItem.objects.filter(user=request.user)
+
+        for ci in cart_items:
+            i=OrderItem()
+            i.fromItem(ci)
+            i.order=order
+            i.save()
+
+        CartItem.objects.filter(user=request.user).delete()
+
+        return HttpResponse(str(order.pk))
+
+class CartCheckout(generics.ListAPIView):
+    serializer_class = CartSerializer
+
+    def get(self,request,*args,**kwargs):
+        status=OrderStatus()
+        order=Order()
+        order.user=request.user
+        order.shipment=ShipmentMethod.objects.get(pk=kwargs['shipment_id'])
+        order.payment=PaymentMethod.objects.get(pk=kwargs['payment_id'])
+        order.net_price=0
+        order.total_price=0
+        order.save()
+        status.status=OrderStatus.STATUS_PENDING
+        status.order=order
+        status.save()
+
+        cart_items=CartItem.objects.filter(user=request.user)
+
+        for ci in cart_items:
+            i=OrderItem()
+            i.fromItem(ci)
+            i.order=order
+            i.save()
+
+        CartItem.objects.filter(user=request.user).delete()
+
+        order.calculate()
+        order.save()
+
+        serializer=OrderSerializer(order)
+
+        return Response(serializer.data)
 
 
 class CartList(CartView):
@@ -91,28 +149,3 @@ class CartShipment(CartView):
 
 
 
-class CartCheckout(CartView):
-
-
-    def get(self,request,*args,**kwargs):
-        status=OrderStatus()
-        order=Order()
-        order.user=request.user
-        order.shipment=ShipmentMethod.objects.get(pk=kwargs['shipment_id'])
-        order.payment=PaymentMethod.objects.get(pk=kwargs['payment_id'])
-        order.save()
-        status.status=OrderStatus.STATUS_PENDING
-        status.order=order
-        status.save()
-
-        cart_items=CartItem.objects.filter(user=request.user)
-
-        for ci in cart_items:
-            i=OrderItem()
-            i.fromItem(ci)
-            i.order=order
-            i.save()
-
-        CartItem.objects.filter(user=request.user).delete()
-
-        return HttpResponse(str(order.pk))

@@ -119,6 +119,18 @@ class Order(models.Model):
     user=models.ForeignKey(User,null=False)
     shipment=models.ForeignKey(ShipmentMethod)
     payment=models.ForeignKey(PaymentMethod)
+    net_price=models.DecimalField(decimal_places=2,max_digits=10,verbose_name="Total net price")
+    total_price=models.DecimalField(decimal_places=2,max_digits=10,verbose_name="Total price")
+
+    def calculate(self):
+        net_sum=0
+        sum=0
+        items=OrderItem.objects.filter(order=self)
+        for i in items:
+            sum+=i.item.tax_price
+            net_sum+=i.item.price
+        self.net_price=net_sum
+        self.total_price=sum
 
     def __unicode__(self):
         return self.pk
@@ -137,6 +149,15 @@ class OrderStatus(models.Model):
     datetime=models.DateTimeField(auto_now=True)
     order=models.ForeignKey(Order)
     status=models.CharField(max_length=64,choices=STATUS_CHOICES)
+
+    def textual(self):
+        for s in OrderStatus.STATUS_CHOICES:
+            (n,t)=s
+
+            if str(n)==self.status or n==self.status:
+                return t
+
+        return unicode(self.status)
 
     @staticmethod
     def get_newest(order):
