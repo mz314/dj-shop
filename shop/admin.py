@@ -5,8 +5,12 @@ class ItemImageInline(admin.TabularInline):
     model=ItemImage
     extra=0
 
+
+
+
+
 class CategoryAdmin(admin.ModelAdmin):
-    pass
+   pass
 
 
 class ItemAdmin(admin.ModelAdmin):

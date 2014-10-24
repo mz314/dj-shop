@@ -1,23 +1,27 @@
-Subcategories
-<div ng-repeat="c in categories" class="shop-subcats">
-    <div>
+<div class="shop-items">
+    <div ng-repeat="c in categories" class="shop-subcats shop-item">
         <div>
-
-
-            <a href="#/shop/{{c.id}}">
-                {{c.name}}
-            </a>
+            <div>
+                <a href="#/shop/{{c.id}}">
+                    <img ng-if="c.image" src="/media/{{c.image}}" width="128" class="item-image" />
+                    <img ng-if="!c.image" src="/static/images/placeholder1.jpg" width="128" class="item-image"  />
+                    <div class="item-name">
+                        {{c.name}}
+                    </div>
+                </a>
+            </div>
+            <div>{{c.description}}</div>
         </div>
-        <div>{{c.description}}</div>
     </div>
 </div>
-Items
+<div style="clear: both; border-top: 1px solid black;"></div>
 <div class="shop-items">
     <div ng-repeat="i in items" class="shop-item">
-                <a href="#/details/{{i.id}}/">
-                <img src="/media/{{i.image.file}}" width="64" class="item-image" />
-                <div class="item-name">{{i.name}}</div>
-                </a>
-                <div class="item-price">{{i.price}}</div>
+        <a href="#/details/{{i.id}}/">
+            <img ng-if="i.image" src="/media/{{i.image.file}}" width="64" class="item-image" />
+            <img ng-if="!i.image" src="/static/images/placeholder1.jpg" width="64" class="item-image"  />
+            <div class="item-name">{{i.name}}</div>
+        </a>
+        <div class="item-price">{{i.price}}</div>
     </div>
 </div>

@@ -36,17 +36,26 @@ class Priced(models.Model):
         else:
             return self.price
 
+class ImageRel(models.Model):
+    class Meta:
+        abstract=True
+
+    file=models.FileField(upload_to='products',null=True,blank=True)
+    title=models.CharField(max_length=128,blank=True,null=True)
+    main_image=models.BooleanField(blank=True,default=False)
+
+    def __unicode__(self):
+        return self.title
+
+
 class Category(models.Model):
     name=models.CharField(max_length=128)
     description=models.TextField(blank=True,null=True)
     parent=models.ForeignKey("self",blank=True,null=True)
+    image=models.FileField(upload_to='categories',null=True,blank=True)
 
     def __unicode__(self):
         return self.name
-
-
-
-
 
 
 class Item(Priced):
@@ -65,14 +74,11 @@ class Item(Priced):
 
 
 
-class ItemImage(models.Model):
-    file=models.FileField(upload_to='products',null=True,blank=True)
-    title=models.CharField(max_length=128,blank=True,null=True)
-    main_image=models.BooleanField(blank=True,default=False)
+class ItemImage(ImageRel):
+    #file=models.FileField(upload_to='products',null=True,blank=True)
+    #title=models.CharField(max_length=128,blank=True,null=True)
+    #main_image=models.BooleanField(blank=True,default=False)
     item=models.ForeignKey(Item)
-
-    def __unicode__(self):
-        return self.title
 
 
 class ShipmentMethod(Priced):

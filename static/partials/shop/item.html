@@ -5,11 +5,13 @@
     <div>
         <div style="clear: both; float: none">
             <div class="main-image-container">
-                <img src="/media/{{main_image.file}}" class="main-image" />
+                <img ng-if="main_image" src="/media/{{main_image.file}}" class="main-image" />
+                <img ng-if="!main_image" src="/static/images/placeholder1.jpg" class="main-image" />
             </div>
-            <ul class="shop-images">
+            <ul class="shop-images" ng-if="product.images">
                 <li  ng-repeat="i in product.images" ng-click="switchImage(i)">
-                    <img src="/media/{{i.file}}"  />
+                    <img   src="/media/{{i.file}}" />
+<!--                    <img ng-if="{{!i.file}}" src="/static/images/placeholder1.jpg"   />-->
                 </li>
             </ul>
         </div>

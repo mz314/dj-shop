@@ -47,7 +47,7 @@ class ItemsSerializer(serializers.ModelSerializer):
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ('id', 'name', 'description', 'parent',)
+        fields = ('id', 'name', 'description', 'parent','image')
 
 class CategorySerializerRecursive(CategorySerializer):
 
