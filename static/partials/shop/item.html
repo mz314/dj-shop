@@ -27,7 +27,7 @@
                 <button type="button" ng-click="more()" class="btn btn-default">+</button>
                 <button type="button" id="add-to-cart" ng-click="addToCart(product)" class="btn btn-success">Add to cart</button>
             </form>
-            <div id="added-message">Added to cart</div>
+            <div style="margin-top: 10px;" ng-if="added_message" class="alert alert-success" role="alert">{{added_message}}</div>
         </div>
     </div>
 </div>

@@ -25,7 +25,9 @@
                 {{i.item.tax_price|number:2}} {{i.item.currency.symbol}}
             </td>
             <td>
-                {{i.quantity}}
+                <button type="button" ng-click="less(i)" class="btn btn-default">-</button>
+                <input class="form-control quantity-spin" type="text" ng-model="i.quantity" />
+                <button type="button" ng-click="more(i)" class="btn btn-default">+</button>
             </td>
             <td>
                 {{i.quantity * i.item.tax_price|number:2}} {{i.item.currency.symbol}}
@@ -49,15 +51,15 @@
             <td >Total</td>
             <td>{{(total_items + parseFloat(sprice.price) + parseFloat(payment.price))}}</td>
             <td colspan="2">&nbsp;</td>
-            <td>{{(total_items_vat + parseFloat(sprice.price) + parseFloat(payment.price))}}
-
+            <td>
+                {{(total_items_vat + parseFloat(sprice.price) + parseFloat(payment.price))}}
             </td>
         </tr>
     </tfoot>
 </table>
 <button type="button" class="btn btn-danger" ng-click="cleanCart()">Clear</button>
 <div style="clear: both">&nbsp;</div>
-<div class="panel panel-default" style="float: left; width: 49.9%">
+<div class="panel panel-default" style="float: left; width: 49.9%" ng-style="{'border-color':sborder}">
     <div class="panel-heading">Select shipment</div>
     <div class="panel-body">   
         
@@ -71,7 +73,7 @@
     </div>
 </div>
 
-<div class="panel panel-default"  style="float: right; width: 49.9%">
+<div class="panel panel-default"  style="float: right; width: 49.9%" ng-style="{'border-color':pborder}">
     <div class="panel-heading">Select payment:</div>
     <div class="panel-body">  
        
@@ -85,7 +87,7 @@
 </div>
 <div style="clear: both">&nbsp;</div>
 
-<button class="btn btn-primary" ng-click="checkout(sprice, payment)">
+<button class="btn btn-primary" ng-click="checkout(sprice, payment,items)">
     Checkout  
 </button>
 

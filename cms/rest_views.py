@@ -10,4 +10,4 @@ class ArticleView(generics.RetrieveAPIView):
     serializer_class = ArticleSerializer
 
 
-   
+

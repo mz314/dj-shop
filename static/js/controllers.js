@@ -63,9 +63,7 @@ djShopControllers.controller('CheckoutCtrl', ['$scope', '$routeParams', '$http',
                 $scope.gw_errors=null;
                 if(data.errors.length===0) {
                     $scope.order.status=1;
-                     //alert('Cool');
-                    //$location.path('/checkout/' + $scope.order.id);
-                     //zrobić chowanie ngifem
+                   
                } else {
                    $scope.gw_errors=data.errors;
                }
@@ -84,8 +82,8 @@ djShopControllers.controller('CheckoutCtrl', ['$scope', '$routeParams', '$http',
     }
 ]);
 
-djShopControllers.controller('CartCtrl', ['$scope', '$routeParams', '$http', '$sce', '$location',
-    function($scope, $routeParams, $http, $sce, $location) {
+djShopControllers.controller('CartCtrl', ['$scope', '$routeParams', '$http', '$sce', '$location','$cookies',
+    function($scope, $routeParams, $http, $sce, $location,$cookies) {
         $scope.total_items = 0;
         $scope.total_items_vat=0;
         $scope.loadCart = function() {
@@ -102,24 +100,49 @@ djShopControllers.controller('CartCtrl', ['$scope', '$routeParams', '$http', '$s
             });
         };
 
-
-
         $scope.sum = function() {
+             $scope.total_items=0;
+             $scope.total_items_vat=0;
             for (i = 0; i < $scope.items.length; i++) {
-
                 $scope.total_items += $scope.items[i].item.price * $scope.items[i].quantity;
                 $scope.total_items_vat += $scope.items[i].item.tax_price * $scope.items[i].quantity;
-                console.log($scope.items[i]);
             }
-        }
+        };
 
-
-        $scope.checkout = function(shipment, payment) {
+        
+        $scope.less=function (item) {
+            if(item.quantity>1) {
+                item.quantity--;  
+                $scope.sum();
+            }
+            
+        };
+        
+        $scope.more=function (item) {
+          item.quantity++;  
+          $scope.sum();
+        };
+        
+        $scope.checkout = function(shipment, payment,items) {
             console.log(payment);
 
             console.log(shipment);
-
-            $http.get('/api/checkout/' + shipment.id + '/' + payment.id ).success(function(data) {
+            $scope.pborder='';
+        $scope.sborder='';
+            
+            if(!payment || !shipment) {
+                if(!payment) {
+                    $scope.pborder='red';
+                }
+                
+                if(!shipment) {
+                        $scope.sborder='red';
+                }
+                
+                return;
+            }
+            $http.defaults.headers.post['X-CSRFToken'] = $cookies.csrftoken;
+            $http.post('/api/checkout/' + shipment.id + '/' + payment.id,items ).success(function(data) {
                 $location.path('/checkout/' + data.id);
             });
         };
@@ -153,14 +176,18 @@ djShopControllers.controller('CartCtrl', ['$scope', '$routeParams', '$http', '$s
 
 
 
-djShopControllers.controller('CartAddController', ['$scope', '$routeParams', '$http', '$cookies',
-    function($scope, $routeParams, $http, $cookies) {
+djShopControllers.controller('CartAddController', ['$scope', '$routeParams', '$http', '$cookies','$timeout',
+    function($scope, $routeParams, $http, $cookies,$timeout) {
         $scope.quantity=1;
         $scope.addToCart = function(item) {
             var q = $scope.quantity;
 
             $http.defaults.headers.post['X-CSRFToken'] = $cookies.csrftoken;
             $http.post('api/cart/' + item.id + '/' + q).success(function(data) {
+                $scope.added_message="Added to cart";
+                $timeout(function () {
+                    $scope.added_message=null;
+                },2000);
             });
         };
         $scope.more=function() {

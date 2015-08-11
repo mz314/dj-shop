@@ -62,7 +62,7 @@ class CartCheckoutAjax(CartView):
 class CartCheckout(generics.ListAPIView):
     serializer_class = CartSerializer
 
-    def get(self,request,*args,**kwargs):
+    def post(self,request,*args,**kwargs):
         status=OrderStatus()
         order=Order()
         order.user=request.user
@@ -76,6 +76,15 @@ class CartCheckout(generics.ListAPIView):
         status.save()
 
         cart_items=CartItem.objects.filter(user=request.user)
+
+        for i in request.DATA:
+           for ci in cart_items:
+               if i['id']==ci.pk:
+                   ci.quantity=i['quantity']
+                   ci.save()
+
+
+
 
         for ci in cart_items:
             i=OrderItem()
