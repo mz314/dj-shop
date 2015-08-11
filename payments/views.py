@@ -9,7 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 import json
 from shop.models import PaymentMethod
-from payments.serializers import *
+from payments.serializers import GatewaySerializer
 
 class GatewayView(generics.ListAPIView):
     serializer_class = GatewaySerializer

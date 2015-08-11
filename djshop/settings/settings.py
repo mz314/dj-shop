@@ -43,7 +43,6 @@ INSTALLED_APPS = (
     'userdata',
     'site_options',
     'payments',
-    'south',
     'djangular',
     'rest_framework'
 
@@ -71,7 +70,7 @@ WSGI_APPLICATION = 'djshop.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
-from dbsettings import *
+from djshop.settings.dbsettings import *
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
@@ -97,7 +96,7 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
 TEMPLATE_DIRS = (
-    BASE_DIR + '/djshop/templates/'
+    BASE_DIR + '/djshop/templates/',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (

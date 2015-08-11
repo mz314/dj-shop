@@ -1,4 +1,4 @@
-from djshop import settings
+from django.conf import settings
 import json
 
 

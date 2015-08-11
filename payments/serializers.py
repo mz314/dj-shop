@@ -13,6 +13,5 @@ class GatewaySerializer(serializers.ModelSerializer):
     def to_native(self, obj):
         native=super(GatewaySerializer,self).to_native(obj)
         native['config']=loadJson(native['config'])
-        print native
         return native
 

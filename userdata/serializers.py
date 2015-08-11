@@ -4,8 +4,8 @@ from userdata.models import *
 from django.contrib.auth.models import User
 
 class UserSerializer(serializers.ModelSerializer):
-    last_login=serializers.DateTimeField(required=False,blank=True)
-    date_joined=serializers.DateTimeField(required=False,blank=True)
+    last_login=serializers.DateTimeField(required=False)
+    date_joined=serializers.DateTimeField(required=False)
     class Meta:
         model=User
         fields=('id','is_superuser','username','password','first_name','last_name',

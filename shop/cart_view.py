@@ -123,7 +123,6 @@ class CartList(CartView):
                 del itm['_item_cache']
             except KeyError:
                 pass
-            print itm
             json_items.append(itm)
         return json_items
 

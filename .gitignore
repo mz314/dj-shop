@@ -4,3 +4,5 @@
 /media/products/*.jpeg
 /media/products/*.gif
 /nbproject/private/
+/venv
+/.idea

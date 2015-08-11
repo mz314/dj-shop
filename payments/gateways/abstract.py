@@ -15,7 +15,6 @@ class PaymentGWAbstract(generics.GenericAPIView):
         return 'Empty'
 
     def success(self):
-        print "Payment success"
         status=OrderStatus()
         status.status=OrderStatus.STATUS_PAYED
         status.order=self.order

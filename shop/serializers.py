@@ -55,7 +55,6 @@ class CategorySerializerRecursive(CategorySerializer):
         native=super(CategorySerializerRecursive,self).to_native(obj)
         children=Category.objects.filter(parent_id=obj.pk)
         #cs=CategorySerializerRecursive(children)
-        print len(children)
         sc=[]
         if len(children)>0:
             for c in children:
